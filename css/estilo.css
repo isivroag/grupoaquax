@@ -23,7 +23,7 @@
 
 .active {
     color: white;
-    background-color: orange;
+    background-color: rgb(9, 30, 124) !important;
 }
 
 .hide_column {
@@ -32,7 +32,7 @@
 
 .seleccionado {
     color: #ffffff !important;
-    background-color: #eb7d3d !important;
+    background-color: rgba(3, 29, 148, 0.63) !important;
     border-color: #dee2e6 #dee2e6 #ffffff !important;
 }
 
