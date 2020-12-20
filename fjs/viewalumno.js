@@ -76,10 +76,10 @@ $(document).ready(function() {
 
     $(document).on("click", ".btnVerEval", function() {
 
-        id = $("#id_alumno").val;
+        id = $("#id_alumno").val();
         console.log(id);
 
-        window.location.href = "vereval.php?id_alumno=" + id;
+        window.location.href = "regevaluacion.php?id=" + id;
 
 
     });

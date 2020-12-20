@@ -48,7 +48,7 @@ $(document).ready(function() {
         fila = $(this).closest("tr");
         id = parseInt(fila.find('td:eq(0)').text());
 
-        window.location.href = "evalini2.php?id=" + id;
+        window.location.href = "regevaluacion.php?id=" + id;
 
 
     });

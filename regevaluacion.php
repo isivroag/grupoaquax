@@ -17,6 +17,7 @@ $id_etapa = "";
 $nom_etapa = "";
 $id_instructor = "";
 $nom_instructor = "";
+$message="";
 
 if (!empty($_GET['id'])) {
 
@@ -65,6 +66,10 @@ if (!empty($_GET['id'])) {
 
 ?>
 
+<link rel="stylesheet" href="plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+<link rel="stylesheet" href="plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+<link rel="stylesheet" href="css/estilo.css">
+
 
 <div class="content-wrapper">
     <section class="content">
@@ -80,10 +85,21 @@ if (!empty($_GET['id'])) {
                             <div class="container" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header bg-gradient-primary">
-                                        <h5 class="modal-title" id="exampleModalLabel">INFORMACION DEL ALUMNO</h5>
+                                        <h5 class="modal-title" id="exampleModalLabel">Información del Alumno</h5>
                                     </div>
                                     <form id="formPersonas" action="" method="POST">
-                                        <div class="modal-body row">
+                                    <div class="modal-body row justify-content-between" style="padding-bottom:0px">
+                                    <div class="col-sm-3">
+                                            <label for="folio" class="col-form-label">Folio:</label>
+                                            <input type="text" class="form-control" name="folio" id="folio" value="">
+                                        </div>
+                                        <div class="col-sm-3">
+                                        <label for="fecha" class="col-form-label">Folio:</label>
+                                            <input type="date" class="form-control" name="fecha" id="fecha" value="">
+                                        </div>
+                                    </div>
+                                        <div class="modal-body row " style="padding-top:0px">
+                                      
                                             <div class="col-sm-12">
                                                 <label for="nombre" class="col-form-label">Nombre:</label>
                                                 <input type="text" class="form-control" name="nombre" id="nombre" value="<?php echo $nom_alumno; ?>">
@@ -144,17 +160,29 @@ if (!empty($_GET['id'])) {
                                                         <br>
 
                                                         <div class="container">
+                                                        
                                                             <div class="row">
                                                                 <div class="col-lg-12">
-                                                                    <div class="table-responsive table-striped table-bordered">
-                                                                        <table class="table" id="tablaobjetivos">
+                                                                    <div class="card-header bg-gradient-blue">
+
+                                                                    <div class="card-tools" style="margin:0px;padding:0px;">
+
+                                                                        <button id="btnAddObj" name="btnAddObj" type="button" class="btn bg-success btn-sm">
+                                                                            <i class="fas fa-plus-square"></i>
+                                                                        </button>
+                                                                        </div>
+                                                                        
+                                                                        <h1 class="card-title "> Objetivos a Evaluar</h1>
+                                                                    
+
+                                                                    </div>
+                                                                    <div class=" table-sm table-condensed table-responsive table-striped table-bordered">
+                                                                        <table class="table" id="tablaObj">
                                                                             <thead>
                                                                                 <tr>
                                                                                     <th class="text-center"><strong>ID</strong></th>
                                                                                     <th class="text-center"><strong>OBJETIVO</strong></th>
-                                                                                    <th class="text-center" style="width:10%"><strong>ESTADO</strong></th>
-                                                                                    <th class="text-center"><strong>VALOR</strong></th>
-                                                                                    <th class="text-center"><strong>EVAL</strong></th>
+                                                                                    <th>ACCIONES</th>
                                                                                 </tr>
                                                                             </thead>
 
@@ -164,6 +192,37 @@ if (!empty($_GET['id'])) {
                                                                         </table>
                                                                     </div>
                                                                 </div>
+                                                                <div class="col-lg-12">
+                                                                <div class="card-header bg-gradient-blue">
+
+                                                                    <div class="card-tools" style="margin:0px;padding:0px;">
+
+                                                                        <button id="btnAddActividad" name="btnAddActividad" type="button" class="btn bg-success btn-sm">
+                                                                            <i class="fas fa-plus-square"></i>
+                                                                        </button>
+                                                                        </div>
+                                                                        
+                                                                        <h1 class="card-title ">Actividades</h1>
+                                                                    
+
+                                                                    </div>
+
+                                                                </div>
+                                                                <div class="table-sm table-condensed mx-auto" style="width:90%;">
+                                                                        <table class="table" id="tablaActividad">
+                                                                            <thead>
+                                                                                <tr>
+                                                                                    <th class="text-center"><strong>ID</strong></th>
+                                                                                    <th class="text-center"><strong>DESCRIPCION</strong></th>
+                                                                                    <th></th>
+                                                                                </tr>
+                                                                            </thead>
+
+                                                                            <tbody id="tbodyact">
+
+                                                                            </tbody>
+                                                                        </table>
+                                                                    </div>
                                                             </div>
                                                         </div>
 
@@ -186,11 +245,111 @@ if (!empty($_GET['id'])) {
             </div>
         </div>
     </section>
+
+
+
+    <section>
+  <div class="container">
+
+    <!-- Default box -->
+    <div class="modal fade" id="modalObj" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content w-auto">
+          <div class="modal-header bg-gradient-primary">
+            <h5 class="modal-title" id="exampleModalLabel">Ojetivos a Evaluar</h5>
+
+          </div>
+          <br>
+          <div class="table-hover responsive w-auto " style="padding:10px">
+            <table name="tablabuscarobj" id="tablabuscarobj" class="table table-sm table-striped table-bordered table-condensed" style="width:100%">
+              <thead class="text-center">
+                <tr>
+                  <th>ID</th>
+                  <th>OBJETIVO</th>
+                  <th>SELECCIONAR</th>
+                </tr>
+              </thead>
+              <tbody>
+                <?php
+                foreach ($data4 as $dtesp) {
+                ?>
+                  <tr>
+                    <td><?php echo $dtesp['id_objetivo'] ?></td>
+                    <td><?php echo $dtesp['desc_objetivo'] ?></td>
+                    <td></td>
+                  </tr>
+                <?php
+                }
+                ?>
+              </tbody>
+            </table>
+          </div>
+
+
+        </div>
+
+      </div>
+      <!-- /.card-body -->
+
+      <!-- /.card-footer-->
+    </div>
+    <!-- /.card -->
+
+  </div>
+</section>
+
+<section>
+  <div class="modal fade" id="modalactividad" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog " role="document">
+      <div class="modal-content">
+        <div class="modal-header bg-gradient-primary">
+          <h5 class="modal-title" id="exampleModalLabel">AGREGAR ACTIVIDAD</h5>
+
+        </div>
+        <div class="card card-widget" style="margin: 10px;">
+          <form id="formotro" action="" method="POST">
+            <div class="modal-body row">
+              <div class="col-sm-12">
+                <div class="form-group input-group-sm">
+                  <label for="actividad" class="col-form-label">Actividad:</label>
+                  <textarea name="actividad" id="actividad" class="form-control" rows="4" placeholder="Descripción de la Actividad"></textarea>
+
+                </div>
+              </div>
+            </div>
+        </div>
+
+
+        <?php
+        if ($message != "") {
+        ?>
+          <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <span class="badge "><?php echo ($message); ?></span>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+
+          </div>
+
+        <?php
+        }
+        ?>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fas fa-ban"></i> Cancelar</button>
+          <button type="button" id="btnguardaractividad" name="btnguardaractividad" class="btn btn-success" value="btnguardaractividad"><i class="far fa-save"></i> Agregar</button>
+        </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+  
 </div>
 
 
 
 
 
+
+
 <?php require_once('templates/footer.php') ?>
-<script src="fjs/evalini.js"></script>
+<script src="fjs/regevaluacion.js"></script>
