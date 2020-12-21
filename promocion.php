@@ -1,4 +1,4 @@
-<?php $pagina = "evaluacion";
+<?php $pagina = "promocion";
 include_once "templates/header.php";
 include_once "templates/barra.php";
 include_once "templates/navegacion.php";
@@ -64,7 +64,9 @@ if (!empty($_GET['id'])) {
 }
 
 ?>
-
+<link rel="stylesheet" href="plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+<link rel="stylesheet" href="plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+<link rel="stylesheet" href="css/estilo.css">
 
 <div class="content-wrapper">
     <section class="content">
@@ -86,9 +88,10 @@ if (!empty($_GET['id'])) {
                                         <div class="modal-body row">
                                             <div class="col-sm-12">
                                                 <label for="nombre" class="col-form-label">Nombre:</label>
-                                                <input type="text" class="form-control" name="nombre" id="nombre" value="<?php echo $nom_alumno; ?>">
+                                                <input type="text" class="form-control" name="nombre" id="nombre" value="<?php echo $nom_alumno; ?>" disabled>
 
                                                 <input type="hidden" class="form-control" name="id" id="id" value="<?php echo $id; ?>">
+                                                <input type="hidden" class="form-control" name="fecha" id="fecha" value="<?php echo date('Y-m-d');; ?>">
                                             </div>
 
                                             <div class="col-sm-4">
@@ -101,6 +104,7 @@ if (!empty($_GET['id'])) {
                                             <div class="col-sm-4">
 
                                                 <label for="etapa" class="col-form-label">Etapa:</label>
+                                                
                                                 <select class="form-control" name="etapa" id="etapa">
 
                                                     <?php
@@ -146,20 +150,26 @@ if (!empty($_GET['id'])) {
                                                         <div class="container">
                                                             <div class="row">
                                                                 <div class="col-lg-12">
-                                                                    <div class="table-responsive table-striped table-bordered">
+                                                                    <div class="table-responsive table-striped table-bordered table-sm table-condensed">
                                                                         <table class="table" id="tablaobjetivos">
                                                                             <thead>
-                                                                                <tr>
+                                                                                <tr class="bg-gradient-blue">
                                                                                     <th class="text-center"><strong>ID</strong></th>
                                                                                     <th class="text-center"><strong>OBJETIVO</strong></th>
                                                                                     <th class="text-center" style="width:10%"><strong>ESTADO</strong></th>
                                                                                     <th class="text-center"><strong>VALOR</strong></th>
-                                                                                    <th class="text-center"><strong>EVAL</strong></th>
+                                                                                    <th class="text-center" style="width:20%"><strong>ACCIONES</strong></th>
                                                                                 </tr>
                                                                             </thead>
 
                                                                             <tbody id="tbody">
-
+                                                                                    <tr>
+                                                                                       <th></th>
+                                                                                       <th></th>
+                                                                                       <th class="text-center"></th>
+                                                                                       <th></th>
+                                                                                       <th></th> 
+                                                                                    </tr>
                                                                             </tbody>
                                                                         </table>
                                                                     </div>
@@ -193,4 +203,9 @@ if (!empty($_GET['id'])) {
 
 
 <?php require_once('templates/footer.php') ?>
-<script src="fjs/evalini.js"></script>
+<script src="fjs/promocion.js"></script>
+<script src="plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+<script src="plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+<script src="plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+<script src="plugins/sweetalert2/sweetalert2.all.min.js"></script>

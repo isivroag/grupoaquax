@@ -42,15 +42,17 @@ $message = "";
 
         <!-- Default box -->
         <div class="card">
-            <div class="card-header">
-                <h1 class="card-title mx-auto">Usuarios</h1>
+            <div class="card-header bg-gradient-blue">
+                <div class="card-title">
+                <h1 class="card-title  mx-auto">Usuarios</h1>
+                </div>
             </div>
 
             <div class="card-body">
 
                 <div class="row">
                     <div class="col-lg-12">
-                        <button id="btnNuevo" type="button" class="btn bg-gradient-orange btn-ms" data-toggle="modal"><i class="fas fa-user-plus text-light"></i><span class="text-light"> Nuevo</span></button>
+                        <button id="btnNuevo" type="button" class="btn bg-gradient-blue btn-ms" data-toggle="modal"><i class="fas fa-user-plus text-light"></i><span class="text-light"> Nuevo</span></button>
                     </div>
                 </div>
                 <br>
@@ -60,7 +62,7 @@ $message = "";
                         <div class="col-lg-12">
                             <div class="table-responsive">
                                 <table name="tablaUsuario" id="tablaUsuario" class="table table-sm table-striped table-bordered table-condensed text-nowrap w-auto mx-auto" style="width:100%">
-                                    <thead class="text-center bg-gradient-orange">
+                                    <thead class="text-center bg-gradient-blue">
                                         <tr>
                                             <th>Id</th>
                                             <th>Nombre</th>

@@ -9,7 +9,7 @@ $(document).ready(function() {
         "columnDefs": [{
             "targets": -1,
             "data": null,
-            "defaultContent": "<div class='text-center'><div class='btn-group'><button class='btn btn-success  btnVer'><i class='fas fa-info-circle'></i> Info</button></div> <div class='btn-group'><button class='btn btn-primary  btnEval'><i class='fas fa-tasks'></i> Evaluar</button></div></div>"
+            "defaultContent": "<div class='text-center'><div class='btn-group'><button class='btn btn-info btnVer'><i class='fas fa-info-circle'></i> Info</button><button class='btn btn-primary  btnEval'><i class='fas fa-tasks'></i> Eval</button><button class='btn bg-purple  btnVerHist'><i class='fas fa-clock'></i> Historia</button><button class='btn bg-success text-light btnPromover'><i class='fas fa-award'></i> Promover</button></div></div>"
         }],
 
         //Para cambiar el lenguaje a español
@@ -40,6 +40,25 @@ $(document).ready(function() {
         id = parseInt(fila.find('td:eq(0)').text());
 
         window.location.href = "viewalumno.php?id=" + id;
+
+
+    });
+
+    $(document).on("click", ".btnPromover", function() {
+        fila = $(this).closest("tr");
+        id = parseInt(fila.find('td:eq(0)').text());
+
+        window.location.href = "promocion.php?id=" + id;
+
+
+    });
+
+
+    $(document).on("click", ".btnVerHist", function() {
+        fila = $(this).closest("tr");
+        id = parseInt(fila.find('td:eq(0)').text());
+
+        window.location.href = "verevaluaciones.php?id=" + id;
 
 
     });

@@ -18,8 +18,8 @@ $(document).ready(function() {
         "columnDefs": [{
             "targets": -1,
             "data": null,
-            "defaultContent": "<div class='text-center'><div class='btn-group'><button class='btn btn-danger  btnborrarObj'><i class='fas fa-trash-alt'></i></div></div>"
-        }],
+            "defaultContent": "<div class='text-center'><div class='btn-group'><button class='btn btn-danger btnborrarObj'><i class='fas fa-trash-alt'></i></div></div>"
+        }, { className: "hide_column", targets: [0] }, ],
 
 
         //Para cambiar el lenguaje a español
@@ -97,7 +97,7 @@ $(document).ready(function() {
 
 
     $(document).on("click", "#btnAddActividad", function() {
-
+        $("#formotro").trigger("reset");
         $(".modal-header").css("background-color", "#007bff");
         $(".modal-header").css("color", "white");
 
@@ -108,6 +108,7 @@ $(document).ready(function() {
 
 
     $(document).on("click", "#btnAddObj", function() {
+
         $(".modal-header").css("background-color", "#007bff");
         $(".modal-header").css("color", "white");
 
@@ -115,30 +116,76 @@ $(document).ready(function() {
 
 
     });
-    $(document).on("click", ".btnSelObj", function() {
+
+
+
+
+
+
+    $(document).on("click", ".btnborrarObj", function(event) {
+        event.preventDefault();
         fila = $(this).closest("tr");
 
         id = fila.find('td:eq(0)').text();
+
+        opc = 2;
+
+
+        $.ajax({
+
+            type: "POST",
+            url: "bd/agregarobjetivo.php",
+            dataType: "json",
+            data: { id: id, opc: opc },
+            success: function(data) {
+
+                if (data == 1) {
+                    tablavis.row(fila.parents("tr")).remove().draw();
+                }
+
+
+
+
+            }
+
+        });
+
+
+
+
+
+    });
+
+    $(document).on("click", ".btnSelObj", function() {
+        fila = $(this).closest("tr");
+        folio = $("#folio").val();
+        id_objetivo = fila.find('td:eq(0)').text();
         objetivo = fila.find('td:eq(1)').text();
+        opc = 1;
 
 
+        $.ajax({
 
-        /*  $.ajax({
+            type: "POST",
+            url: "bd/agregarobjetivo.php",
+            dataType: "json",
+            data: { folio: folio, id_objetivo: id_objetivo, objetivo: objetivo, opc: opc },
+            success: function(data) {
 
-              type: "POST",
-              url: "bd/condiciontmp.php",
-              dataType: "json",
-              data: { folio: folio, condicion: condicion, opc: opc },
-              success: function(data) {
-                  fidreg = data[0].id_reg;
-                  fcondicion = "<li>" + data[0].nom_cond + "</li>";
-                 
+                id = data[0].registro
+                id_objetivo = data[0].id_objetivo
+                descripcion = data[0].descripcion
 
-              }
-        
-    });*/
-        tablavis.row.add([id, objetivo]).draw();
+                tablavis.row.add([id, id_objetivo, descripcion]).draw();
+
+
+            }
+
+        });
+
         $("#modalObj").modal("hide");
+
+
 
     });
 
@@ -147,66 +194,98 @@ $(document).ready(function() {
 
 
         actividad = $("#actividad").val();
-        /*folio = $("#folio").val();
+        folio = $("#folio").val();
+
         opc = 1
 
 
         $.ajax({
 
             type: "POST",
-            url: "bd/condiciontmp.php",
+            url: "bd/agregaractividad.php",
             dataType: "json",
-            data: { folio: folio, condicion: condicion, opc: opc },
+            data: { folio: folio, actividad: actividad, opc: opc },
             success: function(data) {
-                fidreg = data[0].id_reg;
-                fcondicion = "<li>" + data[0].nom_cond + "</li>";
-               
-
+                fidreg = data[0].reg_act;
+                fcondicion = "<li>" + data[0].actividad + "</li>";
+                tablaActividad.row.add([fidreg, fcondicion]).draw();
             }
-        });*/
+        });
 
-        fcondicion = "<li>" + actividad + "</li>";
-        tablaActividad.row.add(['1', fcondicion]).draw();
-        $("#modaactividad").modal("hide");
+        $("#modalactividad").modal("hide");
+
+
 
     });
 
-    $(document).on("click", ".btnEditar", function() {
 
+    $(document).on("click", ".btnborrarcond", function(event) {
+        event.preventDefault();
         fila = $(this).closest("tr");
-        idf = parseInt(fila.find('td:eq(0)').text());
+
+        id = fila.find('td:eq(0)').text();
+
+        opc = 2;
 
 
-        objetivo = fila.find('td:eq(1)').text();
-        valor = parseInt(fila.find('td:eq(3)').text());
-        icono = '<i class="fas fa-swimmer text-success" value="1"></i>';
-        buton = '<button type="button" class="btn btn-secondary btnEditar"><i class="fas fa-edit"></i>Cambiar</button>';
-        console.log(idf);
-        console.log(objetivo);
+        $.ajax({
 
-        console.log(valor);
-        if (valor == 0) {
-            fila.find('.fa-swimmer').addClass("text-success");
-            fila.find('.fa-swimmer').removeClass("text-warning");
-            fila.find('td:eq(3)').html('1');
-        } else {
-            fila.find('.fa-swimmer').removeClass("text-success");
-            fila.find('.fa-swimmer').addClass("text-warning");
-            fila.find('td:eq(3)').html('0');
-        }
-        /*
-                $.ajax({
+            type: "POST",
+            url: "bd/agregaractividad.php",
+            dataType: "json",
+            data: { id: id, opc: opc },
+            success: function(data) {
 
-                    url: "bd/evaluar.php",
-                    type: "POST",
-                    dataType: "json",
-                    data: { id: id, eval: objetivo },
+                if (data == 1) {
+                    tablaActividad.row(fila.parents("tr")).remove().draw();
+                }
 
-                    success: function(data) {
-                        console.log(data);
-                        window.location.href = "bd/evaluar.php";
-                    }
-                });*/
+
+
+
+            }
+
+        });
+
+
+
+
+
+    });
+
+    $(document).on("click", "#btnGuardar", function() {
+        folio = $("#folio").val();
+        fecha = $("#fecha").val();
+
+
+        $.ajax({
+
+            type: "POST",
+            url: "bd/guardareval.php",
+            dataType: "json",
+            data: { folio: folio, fecha: fecha },
+            success: function(data) {
+                if (data == 1) {
+                    console.log(data);
+                    Swal.fire({
+                        title: "Operación Exitosa",
+                        text: "Evaluación Guardada",
+                        icon: "success",
+                    });
+                    window.setTimeout(function() {
+                        window.location.href = "cntaalumno.php";
+                    }, 1000);
+                } else {
+                    Swal.fire({
+                        title: "Error al Guardar",
+                        text: "No se puedo guardar los datos",
+                        icon: "error",
+                    });
+                }
+
+            }
+        });
+
 
     });
 

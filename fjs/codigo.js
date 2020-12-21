@@ -6,7 +6,7 @@ $('#formlogin').submit(function(e) {
     if (document.getElementById("recordar").checked == true) {
         recordar = 1;
     }
-    console.log(recordar);
+
     if (usuario.length == 0 || password.length == 0) {
         Swal.fire({
             title: 'Usuario y/o Contraseña faltantes',

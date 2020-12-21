@@ -76,7 +76,7 @@ $(document).ready(function() {
         objetivo = fila.find('td:eq(1)').text();
         valor = parseInt(fila.find('td:eq(3)').text());
         icono = '<i class="fas fa-swimmer text-success" value="1"></i>';
-        buton = '<button type="button" class="btn btn-secondary btnEditar"><i class="fas fa-edit"></i>Cambiar</button>';
+        buton = '<button type="button" class="btn btn-suc btnEditar"><i class="fas fa-edit"></i>Logrado</button>';
         console.log(idf);
         console.log(objetivo);
 
@@ -140,7 +140,7 @@ function listar() {
                     icono = '<i class="fas fa-swimmer text-grey" value="2"></i>';
                 }
 
-                tabla += '<tr><td>' + res[i].id_objetivo + '</td><td>' + res[i].desc_objetivo + '</td><td class="text-center">' + icono + '</td><td>' + res[i].valor + '</td><td class="text-center"><button type="button" class="btn btn-secondary btnEditar"><i class="fas fa-edit"></i>Cambiar</button></td></tr>';
+                tabla += '<tr><td>' + res[i].id_objetivo + '</td><td>' + res[i].desc_objetivo + '</td><td class="text-center">' + icono + '</td><td>' + res[i].valor + '</td><td class="text-center"><button type="button" class="btn btn-success btnEditar"><i class="fas fa-edit"></i>Cambiar</button></td></tr>';
                 //tabla += '<tr><td>' + res[i].id_objetivo + '</td><td>' + res[i].desc_objetivo + '</td><td class="text-center">' + icono + '</td><td class="text-center"></td></tr>';
             }
             $('#tbody').html(tabla);
