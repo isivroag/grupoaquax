@@ -37,7 +37,7 @@ $(document).ready(function() {
     //botón EDITAR    
     $(document).on("click", ".btnVer", function() {
         fila = $(this).closest("tr");
-        id = parseInt(fila.find('td:eq(0)').text());
+        id = parseInt(fila.find('td:eq(2)').text());
 
         window.location.href = "viewalumno.php?id=" + id;
 
@@ -46,9 +46,10 @@ $(document).ready(function() {
 
     $(document).on("click", ".btnPromover", function() {
         fila = $(this).closest("tr");
-        id = parseInt(fila.find('td:eq(0)').text());
+        id = parseInt(fila.find('td:eq(2)').text());
+        id_reg = parseInt(fila.find('td:eq(0)').text());
 
-        window.location.href = "promo.php?id=" + id;
+        window.location.href = "promocion.php?id=" + id + "&id_reg=" + id_reg;
 
 
     });
@@ -56,7 +57,7 @@ $(document).ready(function() {
 
     $(document).on("click", ".btnVerHist", function() {
         fila = $(this).closest("tr");
-        id = parseInt(fila.find('td:eq(0)').text());
+        id = parseInt(fila.find('td:eq(2)').text());
 
         window.location.href = "verevaluaciones.php?id=" + id;
 
@@ -65,7 +66,7 @@ $(document).ready(function() {
 
     $(document).on("click", ".btnEval", function() {
         fila = $(this).closest("tr");
-        id = parseInt(fila.find('td:eq(0)').text());
+        id = parseInt(fila.find('td:eq(2)').text());
 
         window.location.href = "regevaluacion.php?id=" + id;
 

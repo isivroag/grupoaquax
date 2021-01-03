@@ -8,7 +8,7 @@ $(document).ready(function() {
         columnDefs: [{
                 targets: -1,
                 data: null,
-                defaultContent: "<div class='text-center'><div class='btn-group'><button type='button' class='btn btn-success btnEditar'><i class='fas fa-edit'></i>Validar</button><button type='button' class='btn btn-warning btnactivar '><i class='fas fa-edit'></i>Reactivar</button></div></div>",
+                defaultContent: "<div class='text-center'><div class='btn-group'><button type='button' class='btn btn-success btnEditar'><i class='fas fa-edit'></i>Cambiar</button></div></div>",
             },
             { className: "hide_column", targets: [3] },
             { className: "text-center", targets: [2] },
@@ -100,7 +100,6 @@ $(document).ready(function() {
                             id_objetivo: id_objetivo,
                             fecha: fecha
                         },
-
                         success: function(data) {
                             if (data == 1) {
                                 objetivos();
@@ -108,109 +107,35 @@ $(document).ready(function() {
                                 swal
                                     .fire({
                                         title: "<strong>Objetivos Logrados</strong>",
-                                        html: "El Alumno ha terminado exitosamente los objetivos de este programa.<br><b>¿Desea Comenzar el proceso de cambio de Etapa o Nivel</b>",
-
-                                        showCancelButton: true,
-                                        icon: "question",
-                                        focusConfirm: true,
+                                        html: "El Alumno ha terminado exitosamente los objetivos de este programa.<br><b>Se creara una notificacion para realizar la promoción de etapa/nivel",
                                         confirmButtonText: "Aceptar",
-
-                                        cancelButtonText: "Cancelar",
-                                    }).then(function(isConfirm) {
-                                        if (isConfirm.value) {
-                                            id_reg = $("#id_reg").val();
-                                            $.ajax({
-                                                url: "bd/cambionivel.php",
-                                                type: "POST",
-                                                dataType: "json",
-                                                data: { id_alumno: id_alumno, id_nivel: id_nivel, id_etapa: id_etapa, id_objetivo: id_objetivo, id_reg: id_reg },
-                                                success: function(resp) {
-                                                    if (resp != 0) {
-
-                                                        Swal.fire({
-                                                            title: "Alumno Actualizado",
-                                                            icon: "success",
-                                                        });
-
-                                                        window.setTimeout(function() {
-                                                            window.location.reload()
-                                                        }, 1000);
-
-                                                    } else {
-                                                        console.log(resp);
-                                                        Swal.fire({
-                                                            title: "<strong>Programa Terminado</strong>",
-                                                            html: "<b>El alumno ha terminado con exito el programa completo</b> ",
-
-                                                            icon: "success",
-                                                        });
-
-                                                    }
-
-                                                },
-                                            });
-
-                                        } else if (isConfirm.dismiss === swal.DismissReason.cancel) { objetivos(); }
                                     });
+                                console.log(id_alumno);
+                                console.log(fecha);
+                                /*Crear Registro de Revisión de Alumno */
+                                $.ajax({
+
+                                    url: "bd/notificacion.php",
+                                    type: "POST",
+                                    dataType: "json",
+                                    data: { id_alumno: id_alumno, fecha: fecha },
+
+                                    success: function(resp) {
+                                        console.log(resp);
+
+                                        window.setTimeout(function() {
+                                            window.location.href = "cntapromociones.php";
+                                        }, 1000);
+
+                                    }
+                                });
+
                             }
                         },
                     });
-
-
                 } else if (isConfirm.dismiss === swal.DismissReason.cancel) {}
             });
-
-
     });
-
-    $(document).on("click", ".btnactivar", function() {
-        fila = $(this).closest("tr");
-        swal
-            .fire({
-                title: "Objetivo No logrado",
-                html: "¿Desea reactivar este objetivo?<br><b> ",
-
-                showCancelButton: true,
-                icon: "warning",
-                focusConfirm: true,
-                confirmButtonText: "Aceptar",
-
-                cancelButtonText: "Cancelar",
-            }).then(function(isConfirm) {
-                if (isConfirm.value) {
-
-
-                    id_nivel = $("#id_nivel").val();
-                    id_etapa = $("#etapa").val();
-                    id_alumno = $("#id").val();
-                    id_objetivo = fila.find("td:eq(0)").text();
-                    id_reg = $("#id_reg").val();
-
-                    $.ajax({
-                        url: "bd/reactivar.php",
-                        type: "POST",
-                        dataType: "json",
-                        data: {
-                            id_alumno: id_alumno,
-                            id_nivel: id_nivel,
-                            id_etapa: id_etapa,
-                            id_objetivo: id_objetivo,
-                            id_reg: id_reg,
-
-                        },
-
-                        success: function(data) {
-                            location.reload()
-                        },
-                    });
-
-
-                } else if (isConfirm.dismiss === swal.DismissReason.cancel) {}
-            });
-
-
-    });
-
 });
 
 function objetivos() {

@@ -70,7 +70,7 @@
             </li>
 
             <li class="nav-item">
-              <a href="cntaalumno.php" class="nav-link <?php echo ($pagina == 'promocion') ? "active seleccionado" : ""; ?>  ">
+              <a href="cntapromociones.php" class="nav-link <?php echo ($pagina == 'promocion') ? "active seleccionado" : ""; ?>  ">
               <i class="fas fa-medal nav-icon"></i>
                 <p>Promoción</p>
               </a>

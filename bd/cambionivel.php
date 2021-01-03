@@ -9,6 +9,7 @@ $id_alumno = (isset($_POST['id_alumno'])) ? $_POST['id_alumno'] : '';
 $id_nivel = (isset($_POST['id_nivel'])) ? $_POST['id_nivel'] : '';
 $id_etapa = (isset($_POST['id_etapa'])) ? $_POST['id_etapa'] : '';
 $id_objetivo = (isset($_POST['id_objetivo'])) ? $_POST['id_objetivo'] : '';
+$id_reg = (isset($_POST['id_reg'])) ? $_POST['id_reg'] : '';
 
 $resp=0;
 
@@ -59,6 +60,13 @@ if ($resultado->rowCount() > 0) {
     $resultado = $conexion->prepare($consulta);
     $resultado->execute();
     $resp += 1;
+
+    $consulta = "UPDATE w_promocion SET estado_prom='0' WHERE id_reg='$id_reg'";
+    $resultado = $conexion->prepare($consulta);
+    $resultado->execute();
+    $resp += 1;
+
+
 } else {
     /* Data 0 significa que ya termino el programa completo */
     $resp = 0;

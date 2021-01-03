@@ -1,71 +1,69 @@
-<?php $pagina = "promocion";
-include_once "templates/header.php";
-include_once "templates/barra.php";
-include_once "templates/navegacion.php";
+.p<?php $pagina = "promocion";
+    include_once "templates/header.php";
+    include_once "templates/barra.php";
+    include_once "templates/navegacion.php";
 
 
-include_once 'bd/conexion.php';
-$objeto = new conn();
-$conexion = $objeto->connect();
+    include_once 'bd/conexion.php';
+    $objeto = new conn();
+    $conexion = $objeto->connect();
 
 
-$id = "";
-$id_nivel = "";
-$nom_nivel = "";
-$nom_alumno = "";
-$id_etapa = "";
-$nom_etapa = "";
-$id_instructor = "";
-$nom_instructor = "";
-$id_reg="";
+    $id = "";
+    $id_nivel = "";
+    $nom_nivel = "";
+    $nom_alumno = "";
+    $id_etapa = "";
+    $nom_etapa = "";
+    $id_instructor = "";
+    $nom_instructor = "";
 
-if (!empty($_GET['id'])) {
+    if (!empty($_GET['id'])) {
 
-    $id = $_GET['id'];
-    $id_reg=$_GET['id_reg'];
+        $id = $_GET['id'];
 
 
-    $consulta1 = "SELECT * from vdatosevaluacion where id_alumno='" . $id . "' order by id_alumno";
+        $consulta1 = "SELECT * from vdatosevaluacion where id_alumno='" . $id . "' order by id_alumno";
 
-    $resultado1 = $conexion->prepare($consulta1);
-    $resultado1->execute();
-    $data = $resultado1->fetchAll(PDO::FETCH_ASSOC);
-    if ($resultado1->rowCount() >= 1) {
-        foreach ($data as $dtvin) {
+        $resultado1 = $conexion->prepare($consulta1);
+        $resultado1->execute();
+        $data = $resultado1->fetchAll(PDO::FETCH_ASSOC);
+        if ($resultado1->rowCount() >= 1) {
+            foreach ($data as $dtvin) {
 
-            $nom_alumno = $dtvin['nombre'];
-            $id_nivel = $dtvin['id_nivel'];
-            $nom_nivel = $dtvin['ncorto'];
-            $id_etapa = $dtvin['id_etapa'];
-            $nom_etapa = $dtvin['nom_etapa'];
-            $id_instructor = $dtvin['id_instructor'];
-            $nom_instructor = $dtvin['nominstructor'];
+                $nom_alumno = $dtvin['nombre'];
+                $id_nivel = $dtvin['id_nivel'];
+                $nom_nivel = $dtvin['ncorto'];
+                $id_etapa = $dtvin['id_etapa'];
+                $nom_etapa = $dtvin['nom_etapa'];
+                $id_instructor = $dtvin['id_instructor'];
+                $nom_instructor = $dtvin['nominstructor'];
+            }
         }
+
+        $consulta2 = "SELECT id_etapa,nom_etapa FROM etapa WHERE id_nivel='" . $id_nivel . "' order by id_etapa";
+        $resultado2 = $conexion->prepare($consulta2);
+        $resultado2->execute();
+        $data2 = $resultado2->fetchAll(PDO::FETCH_ASSOC);
+
+
+        $consulta3 = "SELECT id_instructor,instructor FROM vlistas WHERE id_alumno='" . $id . "' and status=1 and estado=1 and id_act=0 group by id_alumno,id_instructor order by instructor";
+        $resultado3 = $conexion->prepare($consulta3);
+        $resultado3->execute();
+        $data3 = $resultado3->fetchAll(PDO::FETCH_ASSOC);
+
+
+
+
+        $consulta4 = "SELECT * FROM evalgeneral where id_alumno='" . $id . "' and id_nivel='" . $id_nivel . "' and id_etapa='" . $id_etapa . "'";
+        $resultado4 = $conexion->prepare($consulta4);
+        $resultado4->execute();
+        $data4 = $resultado4->fetchAll(PDO::FETCH_ASSOC);
+    } else {
+        echo "<script> window.location='cntaalumno.php'; </script>";
     }
 
-    $consulta2 = "SELECT id_etapa,nom_etapa FROM etapa WHERE id_nivel='" . $id_nivel . "' order by id_etapa";
-    $resultado2 = $conexion->prepare($consulta2);
-    $resultado2->execute();
-    $data2 = $resultado2->fetchAll(PDO::FETCH_ASSOC);
-
-
-    $consulta3 = "SELECT id_instructor,instructor FROM vlistas WHERE id_alumno='" . $id . "' and status=1 and estado=1 and id_act=0 group by id_alumno,id_instructor order by instructor";
-    $resultado3 = $conexion->prepare($consulta3);
-    $resultado3->execute();
-    $data3 = $resultado3->fetchAll(PDO::FETCH_ASSOC);
-
-
-
-
-    $consulta4 = "SELECT * FROM evalgeneral where id_alumno='" . $id . "' and id_nivel='" . $id_nivel . "' and id_etapa='" . $id_etapa . "'";
-    $resultado4 = $conexion->prepare($consulta4);
-    $resultado4->execute();
-    $data4 = $resultado4->fetchAll(PDO::FETCH_ASSOC);
-} else {
-    echo "<script> window.location='cntaalumno.php'; </script>";
-}
-
-?>
+    ?>
 <link rel="stylesheet" href="plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
 <link rel="stylesheet" href="plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
 <link rel="stylesheet" href="css/estilo.css">
@@ -93,7 +91,6 @@ if (!empty($_GET['id'])) {
                                                 <input type="text" class="form-control" name="nombre" id="nombre" value="<?php echo $nom_alumno; ?>" disabled>
 
                                                 <input type="hidden" class="form-control" name="id" id="id" value="<?php echo $id; ?>">
-                                                <input type="hidden" class="form-control" name="id_reg" id="id_reg" value="<?php echo $id_reg; ?>">
                                                 <input type="hidden" class="form-control" name="fecha" id="fecha" value="<?php echo date('Y-m-d');; ?>">
                                             </div>
 
@@ -107,7 +104,7 @@ if (!empty($_GET['id'])) {
                                             <div class="col-sm-4">
 
                                                 <label for="etapa" class="col-form-label">Etapa:</label>
-                                                
+
                                                 <select class="form-control" name="etapa" id="etapa">
 
                                                     <?php
@@ -166,13 +163,13 @@ if (!empty($_GET['id'])) {
                                                                             </thead>
 
                                                                             <tbody id="tbody">
-                                                                                    <tr>
-                                                                                       <th></th>
-                                                                                       <th></th>
-                                                                                       <th class="text-center"></th>
-                                                                                       <th></th>
-                                                                                       <th></th> 
-                                                                                    </tr>
+                                                                                <tr>
+                                                                                    <th></th>
+                                                                                    <th></th>
+                                                                                    <th class="text-center"></th>
+                                                                                    <th></th>
+                                                                                    <th></th>
+                                                                                </tr>
                                                                             </tbody>
                                                                         </table>
                                                                     </div>
@@ -206,7 +203,7 @@ if (!empty($_GET['id'])) {
 
 
 <?php require_once('templates/footer.php') ?>
-<script src="fjs/promocion.js"></script>
+<script src="fjs/promo.js"></script>
 <script src="plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
 <script src="plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
