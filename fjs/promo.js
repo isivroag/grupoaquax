@@ -124,8 +124,8 @@ $(document).ready(function() {
                                         console.log(resp);
 
                                         window.setTimeout(function() {
-                                            window.location.href = "cntapromociones.php";
-                                        }, 1000);
+                                            window.location.href = "cntaalumno.php";
+                                        }, 2500);
 
                                     }
                                 });

@@ -68,14 +68,17 @@
                 <p>Registros Eval.</p>
               </a>
             </li>
-
+            <?php if ($_SESSION['s_rol'] == '3') {
+        ?>
             <li class="nav-item">
               <a href="cntapromociones.php" class="nav-link <?php echo ($pagina == 'promocion') ? "active seleccionado" : ""; ?>  ">
               <i class="fas fa-medal nav-icon"></i>
                 <p>Promoción</p>
               </a>
             </li>
-
+<?php
+            }
+?>
          
 
           </ul>
