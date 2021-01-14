@@ -68,7 +68,7 @@
                 <p>Registros Eval.</p>
               </a>
             </li>
-            <?php if ($_SESSION['s_rol'] == '3') {
+            <?php if ($_SESSION['s_rol'] == '3' || $_SESSION['s_rol'] == '2') {
         ?>
             <li class="nav-item">
               <a href="cntapromociones.php" class="nav-link <?php echo ($pagina == 'promocion') ? "active seleccionado" : ""; ?>  ">
