@@ -62,7 +62,7 @@ if (!empty($_GET['id'])) {
     $resultadoreg = $conexion->prepare($cntareg);
     $resultadoreg->execute();
 
-    $consultatmp = "SELECT folio FROM evalregistro WHERE id_alumno ='$id' ORDER BY folio DESC LIMIT 1";
+    $consultatmp = "SELECT folio FROM evalregistro WHERE id_alumno ='$id' ORDER BY folio";
     $resultadotmp = $conexion->prepare($consultatmp);
     $resultadotmp->execute();
     $datatmp = $resultadotmp->fetchAll(PDO::FETCH_ASSOC);
@@ -99,7 +99,7 @@ if (!empty($_GET['id'])) {
 
 
 
-  $consulta4 = "SELECT * FROM evalgeneral where id_alumno='" . $id . "' and id_nivel='" . $id_nivel . "' and id_etapa='" . $id_etapa . "' and activo='1'";
+  $consulta4 = "SELECT * FROM evalgeneral where id_alumno='" . $id . "' and id_nivel='" . $id_nivel . "' and id_etapa='" . $id_etapa . "' and activo='1' limit 1";
   $resultado4 = $conexion->prepare($consulta4);
   $resultado4->execute();
   $data4 = $resultado4->fetchAll(PDO::FETCH_ASSOC);
