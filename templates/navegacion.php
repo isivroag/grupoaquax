@@ -29,16 +29,16 @@
         <li class="nav-item ">
           <a href="inicio.php" class="nav-link <?php echo ($pagina == 'home') ? "active" : ""; ?> ">
             <i class="nav-icon fas fa-home "></i>
-            <p >
+            <p>
               Inicio
             </p>
           </a>
         </li>
 
-        <li class="nav-item  has-treeview <?php echo ($pagina == 'grupo' || $pagina == 'alumno' || $pagina == 'evaluacion' || $pagina == 'promocion' ) ? "menu-open" : ""; ?>">
+        <li class="nav-item  has-treeview <?php echo ($pagina == 'grupo' || $pagina == 'alumno' || $pagina == 'evaluacion' || $pagina == 'promocion') ? "menu-open" : ""; ?>">
 
 
-          <a href="#" class="nav-link  <?php echo ($pagina == 'grupo' || $pagina == 'alumno' || $pagina == 'evaluacion' || $pagina == 'promocion' ) ? "active" : ""; ?>">
+          <a href="#" class="nav-link  <?php echo ($pagina == 'grupo' || $pagina == 'alumno' || $pagina == 'evaluacion' || $pagina == 'promocion') ? "active" : ""; ?>">
             <i class="nav-icon fas fa-award nav-icon"></i>
             <p>
               Evaluaciones
@@ -50,14 +50,14 @@
           <ul class="nav nav-treeview">
             <li class="nav-item">
               <a href="cntagpo.php" class="nav-link <?php echo ($pagina == 'grupo') ? "active seleccionado" : ""; ?>  ">
-              <i class="fas fa-swimming-pool nav-icon"></i>
+                <i class="fas fa-swimming-pool nav-icon"></i>
                 <p>Grupos</p>
               </a>
             </li>
 
             <li class="nav-item">
               <a href="cntaalumno.php" class="nav-link <?php echo ($pagina == 'alumno') ? "active seleccionado" : ""; ?>  ">
-              <i class="fas fa-swimmer nav-icon"></i>
+                <i class="fas fa-swimmer nav-icon"></i>
                 <p>Alumnos</p>
               </a>
             </li>
@@ -68,25 +68,75 @@
                 <p>Registros Eval.</p>
               </a>
             </li>
+
+
+            
             <?php if ($_SESSION['s_rol'] == '3' || $_SESSION['s_rol'] == '2') {
-        ?>
-            <li class="nav-item">
-              <a href="cntapromociones.php" class="nav-link <?php echo ($pagina == 'promocion') ? "active seleccionado" : ""; ?>  ">
-              <i class="fas fa-medal nav-icon"></i>
-                <p>Promoción</p>
-              </a>
-            </li>
-<?php
+            ?>
+              <li class="nav-item">
+                <a href="cntapromociones.php" class="nav-link <?php echo ($pagina == 'promocion') ? "active seleccionado" : ""; ?>  ">
+                  <i class="fas fa-medal nav-icon"></i>
+                  <p>Promoción</p>
+                </a>
+              </li>
+            <?php
             }
-?>
-         
+            ?>
+
 
           </ul>
 
         </li>
 
+        <li class="nav-item has-treeview <?php echo ($pagina == 'proveedor' || $pagina == 'partida' || $pagina == 'cxp' || $pagina == 'subpartida') ? "menu-open" : ""; ?>">
 
-     
+
+          <a href="#" class="nav-link <?php echo ($pagina == 'proveedor' || $pagina == 'partida' || $pagina == 'cxp' || $pagina == 'subpartida') ? "active" : ""; ?>">
+          <span class="fa-stack">
+              <i class=" fas fa-dollar-sign "></i>
+              <i class=" fas fa-arrow-down "></i>
+            </span>
+            <p>
+              Egresos
+              <i class="right fas fa-angle-left"></i>
+            </p>
+          </a>
+          <ul class="nav nav-treeview">
+
+            <li class="nav-item">
+              <a href="cntapartida.php" class="nav-link <?php echo ($pagina == 'partida') ? "active seleccionado" : ""; ?>  ">
+                <i class="fas fa-list-alt nav-icon"></i>
+                <p>Partidas</p>
+              </a>
+            </li>
+
+            <li class="nav-item">
+              <a href="cntapartida.php" class="nav-link <?php echo ($pagina == 'subpartida') ? "active seleccionado" : ""; ?>  ">
+                <i class="fas fa-list-alt nav-icon"></i>
+                <p>Subpartidas</p>
+              </a>
+            </li>
+
+            <li class="nav-item">
+              <a href="cntaproveedor.php" class="nav-link <?php echo ($pagina == 'proveedor') ? "active seleccionado" : ""; ?>  ">
+                <i class="fas fa-people-carry nav-icon"></i>
+                <p>Proveedores</p>
+              </a>
+            </li>
+
+            <li class="nav-item">
+              <a href="cntacxp.php" class="nav-link <?php echo ($pagina == 'cxp') ? "active seleccionado" : ""; ?>  ">
+                <i class="fas fa-file-invoice-dollar nav-icon"></i>
+                <p>Cuentas por Pagar</p>
+              </a>
+            </li>
+
+
+          </ul>
+        </li>
+
+
+
 
 
 
