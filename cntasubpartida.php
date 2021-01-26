@@ -63,7 +63,7 @@ $message = "";
                 <br>
                 <div class="container-fluid">
 
-                <div class="row justify-content-sm-center bg-blue py-2 px-3 mt-4" disabled>
+                <div class="row justify-content-sm-center bg-blue py-2 px-2 mt-2 mb-2" disabled>
                         <div class="col-sm-3 ">
                             <label for="partida" class="col-form-label">Id Partida: </label>
                             <input type="text" class="form-control" name="partida" id="partida" value="<?php echo $id ?>" disabled>

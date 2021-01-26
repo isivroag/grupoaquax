@@ -59,7 +59,7 @@ $(document).ready(function() {
 
         $(".modal-header").css("background-color", "#007bff");
         $(".modal-header").css("color", "white");
-        $(".modal-title").text("Editar Partida");
+        $(".modal-title").text("Editar Subpartida");
         $("#modalCRUD").modal("show");
 
     });
