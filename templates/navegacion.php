@@ -135,6 +135,39 @@
           </ul>
         </li>
 
+        <li class="nav-item has-treeview <?php echo ($pagina == 'cuentas' || $pagina == 'caja' ) ? "menu-open" : ""; ?>">
+
+
+          <a href="#" class="nav-link <?php echo ($pagina == 'cuentas' || $pagina == 'caja') ? "active" : ""; ?>">
+          <span class="fa-stack">
+              <i class="nav-icon fas fa-dollar-sign "></i>
+            </span>
+            <p>
+              Control
+              <i class="right fas fa-angle-left"></i>
+            </p>
+          </a>
+          <ul class="nav nav-treeview">
+
+            <li class="nav-item">
+              <a href="cntacuenta.php" class="nav-link <?php echo ($pagina == 'cuentas') ? "active seleccionado" : ""; ?>  ">
+                <i class="fas fa-money-check-alt nav-icon"></i>
+                <p>Cuentas</p>
+              </a>
+            </li>
+
+            <li class="nav-item">
+              <a href="cntacaja.php" class="nav-link <?php echo ($pagina == 'caja') ? "active seleccionado" : ""; ?>  ">
+                <i class="fas fa-cash-register nav-icon"></i>
+                <p>Caja</p>
+              </a>
+            </li>
+
+         
+
+          </ul>
+        </li>
+
 
 
 

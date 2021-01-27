@@ -130,27 +130,28 @@ $(document).ready(function() {
     $(document).on("click", ".btnBorrar", function() {
         fila = $(this);
 
-        id = parseInt($(this).closest("tr").find('td:eq(0)').text());
+        folio = parseInt($(this).closest("tr").find('td:eq(0)').text());
         opcion = 3 //borrar
 
         //agregar codigo de sweatalert2
-        var respuesta = confirm("¿Está seguro de eliminar el registro: " + id + "?");
+        var respuesta = confirm("¿Está seguro de eliminar el registro: " + folio + "?");
 
 
 
         if (respuesta) {
             $.ajax({
 
-                url: "",
+                url: "bd/crudcxp.php",
                 type: "POST",
                 dataType: "json",
-                data: { id: id, opcion: opcion },
+                data: { folio: folio, opcion: opcion },
 
                 success: function(data) {
-                    console.log(fila);
 
+                    if (data == '1') {
+                        tablaVis.row(fila.parents('tr')).remove().draw();
+                    }
 
-                    tablaVis.row(fila.parents('tr')).remove().draw();
                 }
             });
         }

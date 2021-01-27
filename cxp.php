@@ -16,7 +16,7 @@ $tokenid = md5($_SESSION['s_usuario']);
 if ($folio != "") {
 
   $opcion = 2;
-  $consulta = "SELECT * FROM vcxp where folio_cxp='$folio'";
+  $consulta = "SELECT * FROM w_vcxp where folio_cxp='$folio'";
 
   $resultado = $conexion->prepare($consulta);
   $resultado->execute();
@@ -134,7 +134,7 @@ $datacon = $resultadocon->fetchAll(PDO::FETCH_ASSOC);
                   <div class="col-lg-5">
                     <div class="form-group">
                       <input type="hidden" class="form-control" name="tokenid" id="tokenid" value="<?php echo $tokenid; ?>">
-                      <input type="text" class="form-control" name="opcion" id="opcion" value="<?php echo $opcion; ?>">
+                      <input type="hidden" class="form-control" name="opcion" id="opcion" value="<?php echo $opcion; ?>">
                       <input type="hidden" class="form-control" name="id_prov" id="id_prov" value="<?php echo $id_prov; ?>">
                       <label for="nombre" class="col-form-label">Proveedor:</label>
 
@@ -161,7 +161,7 @@ $datacon = $resultadocon->fetchAll(PDO::FETCH_ASSOC);
                       <div class="input-group input-group-sm">
 
                         <span class="input-group-prepend input-group-text">
-                          <input type="checkbox" class="" name="cfactura" id="cfactura">
+                          <input type="checkbox" class="" name="cfactura" id="cfactura" <?php echo($facturado='1' ?'checked': '') ?>>
                         </span>
 
 
@@ -177,7 +177,7 @@ $datacon = $resultadocon->fetchAll(PDO::FETCH_ASSOC);
                     <div class="form-group input-group-sm">
                       <label for="folior" class="col-form-label">Folio:</label>
                       <input type="hidden" class="form-control" name="folio" id="folio" value="<?php echo $folio; ?>">
-                      <input type="text" class="form-control" name="folior" id="folior" value="<?php echo   $folio; ?>">
+                      <input type="text" class="form-control" name="folior" id="folior" value="<?php echo $folio; ?>">
                     </div>
                   </div>
 

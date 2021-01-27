@@ -27,17 +27,16 @@ $opcion = (isset($_POST['opcion'])) ? $_POST['opcion'] : '';
 
 
 
-$data=0;
+$data = 0;
 
 switch ($opcion) {
     case 1: //alta
         $consulta = "INSERT INTO w_cxp (fecha,fecha_limite,id_prov,id_partida,id_subpartida,concepto,facturado,referencia,subtotal,iva,total,saldo,usuario) VALUES ('$fecha','$fecha_limite','$id_prov','$id_partida','$id_subpartida','$concepto',$facturado,'$referencia','$subtotal','$iva','$total','$saldo','$usuario')";
         $resultado = $conexion->prepare($consulta);
         if ($resultado->execute()) {
-        $data = 1;
-        }
-        else {
-            $data=0;
+            $data = 1;
+        } else {
+            $data = 0;
         }
 
 
@@ -45,15 +44,24 @@ switch ($opcion) {
     case 2:
         $consulta = "UPDATE w_cxp SET fecha='$fecha',fecha_limite='$fecha_limite',id_prov='$id_prov',id_partida='$id_partida',id_subpartida='$id_subpartida',concepto='$concepto',facturado='$facturado',referencia='$referencia',subtotal='$subtotal',iva='$iva',total='$total',saldo='$total',usuario='$usuario' WHERE folio_cxp='$folio'";
         $resultado = $conexion->prepare($consulta);
-        $resultado->execute();
+       
         if ($resultado->execute()) {
             $data = 1;
-            }
-            else {
-                $data=0;
-            }
-    
+        } else {
+            $data = 0;
+        }
 
+
+        break;
+    case 3:
+        $consulta = "UPDATE w_cxp SET estado_cxp='0' WHERE folio_cxp='$folio'";
+        $resultado = $conexion->prepare($consulta);
+       
+        if ($resultado->execute()) {
+            $data = 1;
+        } else {
+            $data = 0;
+        }
         break;
 }
 
