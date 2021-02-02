@@ -161,7 +161,7 @@ $datacon = $resultadocon->fetchAll(PDO::FETCH_ASSOC);
                       <div class="input-group input-group-sm">
 
                         <span class="input-group-prepend input-group-text">
-                          <input type="checkbox" class="" name="cfactura" id="cfactura" <?php echo($facturado='1' ?'checked': '') ?>>
+                          <input type="checkbox" class="" name="cfactura" id="cfactura" <?php echo($facturado=='1' ?'checked': '') ?>>
                         </span>
 
 

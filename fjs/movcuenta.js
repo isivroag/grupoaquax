@@ -14,7 +14,7 @@ $(document).ready(function() {
         "columnDefs": [{
             "targets": -1,
             "data": null,
-            "defaultContent": "<div class='text-center'><div class='btn-group'><button class='btn btn-sm btn-success btnSelCliente'><i class='fas fa-hand-pointer'></i></button></div></div>"
+            "defaultContent": "<div class='text-center'><div class='btn-group'><button class='btn btn-sm btn-success btnSelCuenta'><i class='fas fa-hand-pointer'></i></button></div></div>"
         }],
 
         //Para cambiar el lenguaje a español
@@ -63,103 +63,42 @@ $(document).ready(function() {
         }
     });
 
-    tablaSub = $("#tablaSub").DataTable({
-
-
-
-        "columnDefs": [{
-            "targets": -1,
-            "data": null,
-            "defaultContent": "<div class='text-center'><div class='btn-group'><button class='btn btn-sm btn-success btnSelSubpartida'><i class='fas fa-hand-pointer'></i></button></div></div>"
-        }],
-
-        //Para cambiar el lenguaje a español
-        "language": {
-            "lengthMenu": "Mostrar _MENU_ registros",
-            "zeroRecords": "No se encontraron resultados",
-            "info": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
-            "infoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
-            "infoFiltered": "(filtrado de un total de _MAX_ registros)",
-            "sSearch": "Buscar:",
-            "oPaginate": {
-                "sFirst": "Primero",
-                "sLast": "Último",
-                "sNext": "Siguiente",
-                "sPrevious": "Anterior"
-            },
-            "sProcessing": "Procesando...",
-        }
-    });
 
 
 
 
-    $(document).on("click", "#bproveedor", function() {
+
+    $(document).on("click", "#bcuenta", function() {
 
         $(".modal-header").css("background-color", "#007bff");
         $(".modal-header").css("color", "white");
 
-        $("#modalProspecto").modal("show");
+        $("#modal1").modal("show");
 
     });
 
 
-    $(document).on("click", "#bproveedorplus", function() {
-
-        window.location.href = "cntaproveedor.php";
-
-
-    });
-
-
-    $(document).on("click", "#bpartidaplus", function() {
-
-        window.location.href = "cntapartida.php";
-
-    });
-
-    $(document).on("click", "#bpartida", function() {
-
-        $(".modal-header").css("background-color", "#007bff");
-        $(".modal-header").css("color", "white");
-
-        $("#modalConcepto").modal("show");
 
 
 
 
 
 
-    });
-
-    $(document).on("click", "#bsubpartida", function() {
-
-        $(".modal-header").css("background-color", "#007bff");
-        $(".modal-header").css("color", "white");
-
-        $("#modalSubpartida").modal("show");
-
-
-
-
-
-
-    });
-
-    $(document).on("click", ".btnSelConcepto", function() {
+    $(document).on("click", ".btnSelCuenta", function() {
         fila = $(this).closest("tr");
 
-        id_partida = fila.find('td:eq(0)').text();
-        nompartida = fila.find('td:eq(2)').text();
+        id_cuenta = fila.find('td:eq(0)').text();
+        cuenta = fila.find('td:eq(1)').text();
+        saldo = fila.find('td:eq(2)').text();
 
-        opcion = 1;
 
-        $("#id_partida").val(id_partida);
-        $("#partida").val(nompartida);
-        $("#id_subpartida").val("");
-        $("#subpartida").val("");
-        $("#modalConcepto").modal("hide");
-        listarsubpartida(id_partida);
+
+        $("#id_cuenta").val(id_cuenta);
+        $("#cuenta").val(cuenta);
+        $("#saldoini").val(saldo);
+
+        $("#modal1").modal("hide");
+
 
     });
 
