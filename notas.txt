@@ -43,3 +43,18 @@ COLLATE='utf8mb4_spanish_ci'
 ENGINE=InnoDB
 AUTO_INCREMENT=11
 ;
+
+w_vgrupo
+SELECT `grupo`.`ID_GRUPO` AS `id_grupo`,`grupo`.`ID_INSTRUCTOR` AS `id_instructor`,`instructor`.`NOMBRE` AS `nombre`,`grupo`.`DIA` AS `dia`,`grupo`.`HORA` AS `hora`,`grupo`.`STATUS` AS `status`,`grupo`.`ID_SUBGPO` AS `id_subgpo`,`grupo`.`ID_ACT` AS `id_act`
+FROM (`grupo`
+JOIN `instructor` ON((`grupo`.`ID_INSTRUCTOR` = `instructor`.`ID_INSTRUCTOR`)))
+
+
+v_vlistaalumnos
+
+SELECT `listaalumnos`.`ID_GRUPO` AS `id_grupo`,`listaalumnos`.`ID_ALUMNO` AS `id_alumno`,`alumno`.`NOMBRE` AS `nombre`,`alumno`.`ID_NIVEL` AS `id_nivel`,`nivel`.`NCORTO` AS `ncorto`,`listaalumnos`.`ESTADO` AS `estado`,`listaalumnos`.`ID_ACT` AS `id_act`,`nivel`.`ORDEN` AS `orden`,`alumno`.`ID_SUB` AS `id_sub`,`tagsubgrupo`.`orden_sub` AS `orden_sub`
+FROM (((`listaalumnos`
+JOIN `alumno` ON((`listaalumnos`.`ID_ALUMNO` = `alumno`.`ID_ALUMNO`)))
+JOIN `tagsubgrupo` ON((`alumno`.`ID_SUB` = `tagsubgrupo`.`ID_SUB`)))
+JOIN `nivel` ON((`alumno`.`ID_NIVEL` = `nivel`.`ID_NIVEL`)))
+WHERE ((`listaalumnos`.`ESTADO` = 1) AND (`listaalumnos`.`ID_ACT` = 0))
