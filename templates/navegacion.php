@@ -88,10 +88,10 @@
 
         </li>
 
-        <li class="nav-item has-treeview <?php echo ($pagina == 'proveedor' || $pagina == 'partida' || $pagina == 'cxp' || $pagina == 'subpartida') ? "menu-open" : ""; ?>">
+        <li class="nav-item has-treeview <?php echo ($pagina == 'proveedor' || $pagina == 'partida' || $pagina == 'cxp' || $pagina == 'subpartida' || $pagina == 'gtocaja') ? "menu-open" : ""; ?>">
 
 
-          <a href="#" class="nav-link <?php echo ($pagina == 'proveedor' || $pagina == 'partida' || $pagina == 'cxp' || $pagina == 'subpartida') ? "active" : ""; ?>">
+          <a href="#" class="nav-link <?php echo ($pagina == 'proveedor' || $pagina == 'partida' || $pagina == 'cxp' || $pagina == 'subpartida' ||  $pagina == 'gtocaja' ) ? "active" : ""; ?>">
           <span class="fa-stack">
               <i class=" fas fa-dollar-sign "></i>
               <i class=" fas fa-arrow-down "></i>
@@ -130,7 +130,12 @@
                 <p>Cuentas por Pagar</p>
               </a>
             </li>
-
+            <li class="nav-item">
+              <a href="cntagastoscaja.php" class="nav-link <?php echo ($pagina == 'gtocaja') ? "active seleccionado" : ""; ?>  ">
+                <i class="fas fa-cash-register nav-icon"></i>
+                <p>Gastos Caja</p>
+              </a>
+            </li>
 
           </ul>
         </li>
