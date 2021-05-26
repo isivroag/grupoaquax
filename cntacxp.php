@@ -17,9 +17,7 @@ $resultado = $conexion->prepare($consulta);
 $resultado->execute();
 $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
 
-$consultag = "SET lc_time_names = 'es_ES'";
-$resultadog = $conexion->prepare($consultag);
-$resultadog->execute();
+
 
 $consultag = "SELECT SUM(total) AS total,monthname(fecha) as mes,year(fecha) as año FROM w_vcxp GROUP BY MONTH(fecha),year(fecha) order by year(fecha), MONTH(fecha)";
 $resultadog = $conexion->prepare($consultag);

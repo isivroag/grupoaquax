@@ -17,10 +17,6 @@ $resultado = $conexion->prepare($consulta);
 $resultado->execute();
 $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
 
-$consultag = "SET lc_time_names = 'es_ES'";
-$resultadog = $conexion->prepare($consultag);
-$resultadog->execute();
-
 
 
 $message = "";

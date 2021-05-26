@@ -71,7 +71,7 @@
 
 
             
-            <?php if ($_SESSION['s_rol'] == '3' || $_SESSION['s_rol'] == '2') {
+            <?php if ($_SESSION['s_rol'] == '5' || $_SESSION['s_rol'] == '3' || $_SESSION['s_rol'] == '2') {
             ?>
               <li class="nav-item">
                 <a href="cntapromociones.php" class="nav-link <?php echo ($pagina == 'promocion') ? "active seleccionado" : ""; ?>  ">
@@ -87,21 +87,29 @@
           </ul>
 
         </li>
+        <?php if ($_SESSION['s_rol'] == '5' || $_SESSION['s_rol'] == '2' ) {
+            ?>
+        <li class="nav-item has-treeview <?php echo ($pagina == 'proveedor' || $pagina == 'partida' || $pagina == 'cxp' || $pagina == 'subpartida' || $pagina == 'cuentas') ? "menu-open" : ""; ?>">
 
-        <li class="nav-item has-treeview <?php echo ($pagina == 'proveedor' || $pagina == 'partida' || $pagina == 'cxp' || $pagina == 'subpartida' || $pagina == 'gtocaja') ? "menu-open" : ""; ?>">
 
-
-          <a href="#" class="nav-link <?php echo ($pagina == 'proveedor' || $pagina == 'partida' || $pagina == 'cxp' || $pagina == 'subpartida' ||  $pagina == 'gtocaja' ) ? "active" : ""; ?>">
+          <a href="#" class="nav-link <?php echo ($pagina == 'proveedor' || $pagina == 'partida' || $pagina == 'cxp' || $pagina == 'subpartida' ||  $pagina == 'cuentas' ) ? "active" : ""; ?>">
           <span class="fa-stack">
               <i class=" fas fa-dollar-sign "></i>
               <i class=" fas fa-arrow-down "></i>
             </span>
             <p>
-              Egresos
+              Control
               <i class="right fas fa-angle-left"></i>
             </p>
           </a>
           <ul class="nav nav-treeview">
+
+          <li class="nav-item">
+              <a href="cntacuenta.php" class="nav-link <?php echo ($pagina == 'cuentas') ? "active seleccionado" : ""; ?>  ">
+                <i class="fas fa-money-check-alt nav-icon"></i>
+                <p>Cuentas</p>
+              </a>
+            </li>
 
             <li class="nav-item">
               <a href="cntapartida.php" class="nav-link <?php echo ($pagina == 'partida') ? "active seleccionado" : ""; ?>  ">
@@ -130,50 +138,53 @@
                 <p>Cuentas por Pagar</p>
               </a>
             </li>
-            <li class="nav-item">
-              <a href="cntagastoscaja.php" class="nav-link <?php echo ($pagina == 'gtocaja') ? "active seleccionado" : ""; ?>  ">
-                <i class="fas fa-cash-register nav-icon"></i>
-                <p>Gastos Caja</p>
-              </a>
-            </li>
+
+
+           
 
           </ul>
         </li>
+<?php } ?>
+  <?php if ($_SESSION['s_rol'] == '5' || $_SESSION['s_rol'] == '6'|| $_SESSION['s_rol'] == '2' ) {
+            ?>
+        <li class="nav-item has-treeview <?php echo ($pagina == 'gtocaja' || $pagina == 'caja' ) ? "menu-open" : ""; ?>">
 
-        <li class="nav-item has-treeview <?php echo ($pagina == 'cuentas' || $pagina == 'caja' ) ? "menu-open" : ""; ?>">
 
-
-          <a href="#" class="nav-link <?php echo ($pagina == 'cuentas' || $pagina == 'caja') ? "active" : ""; ?>">
+          <a href="#" class="nav-link <?php echo ($pagina == 'gtocaja' || $pagina == 'caja') ? "active" : ""; ?>">
           <span class="fa-stack">
-              <i class="nav-icon fas fa-dollar-sign "></i>
+          <i class="fas fa-cash-register nav-icon"></i>
+              
+              
             </span>
             <p>
-              Control
+              Caja
               <i class="right fas fa-angle-left"></i>
             </p>
           </a>
           <ul class="nav nav-treeview">
 
-            <li class="nav-item">
-              <a href="cntacuenta.php" class="nav-link <?php echo ($pagina == 'cuentas') ? "active seleccionado" : ""; ?>  ">
-                <i class="fas fa-money-check-alt nav-icon"></i>
-                <p>Cuentas</p>
+          <li class="nav-item">
+              <a href="cntagastoscaja.php" class="nav-link <?php echo ($pagina == 'gtocaja') ? "active seleccionado" : ""; ?>  ">
+              <i class="nav-icon fas fa-dollar-sign "></i>
+                <p>Gastos Caja</p>
               </a>
             </li>
-
+<!--
             <li class="nav-item">
               <a href="cntacaja.php" class="nav-link <?php echo ($pagina == 'caja') ? "active seleccionado" : ""; ?>  ">
                 <i class="fas fa-cash-register nav-icon"></i>
-                <p>Caja</p>
+                <p>Ingresos</p>
               </a>
             </li>
-
+-->
          
 
           </ul>
         </li>
 
-
+<?php
+        }
+?>
 
 
 
