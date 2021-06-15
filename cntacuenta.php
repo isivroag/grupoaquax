@@ -125,8 +125,8 @@ $message = "";
                                         <select class="form-control" name="tipo" id="tipo">
 
                                             <option id="BANCO" value="BANCO"> BANCO</option>
-                                            <option id="CAJA FUERTE" value="CAJA FUERTE"> CAJA FUERTE</option>
-                                            <option id="CAJA CHICA" value="CAJA CHICA"> CAJA CHICA</option>
+                                            <option id="CAJA GRANDE" value="CAJA GRANDE"> CAJA GRANDE</option>
+                                         
 
                                         </select>
                                     </div>

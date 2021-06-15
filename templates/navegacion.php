@@ -147,10 +147,10 @@
 <?php } ?>
   <?php if ($_SESSION['s_rol'] == '5' || $_SESSION['s_rol'] == '6'|| $_SESSION['s_rol'] == '2' ) {
             ?>
-        <li class="nav-item has-treeview <?php echo ($pagina == 'gtocaja' || $pagina == 'caja' ) ? "menu-open" : ""; ?>">
+        <li class="nav-item has-treeview <?php echo ($pagina == 'gtocaja' || $pagina == 'caja' || $pagina == 'gastoscajag') ? "menu-open" : ""; ?>">
 
 
-          <a href="#" class="nav-link <?php echo ($pagina == 'gtocaja' || $pagina == 'caja') ? "active" : ""; ?>">
+          <a href="#" class="nav-link <?php echo ($pagina == 'gtocaja' || $pagina == 'caja' || $pagina == 'gastoscajag') ? "active" : ""; ?>">
           <span class="fa-stack">
           <i class="fas fa-cash-register nav-icon"></i>
               
@@ -164,9 +164,16 @@
           <ul class="nav nav-treeview">
 
           <li class="nav-item">
+              <a href="cntacajag.php" class="nav-link <?php echo ($pagina == 'gastoscajag') ? "active seleccionado" : ""; ?>  ">
+              <i class="nav-icon fas fa-donate "></i>
+                <p>Caja Grande</p>
+              </a>
+            </li>
+
+          <li class="nav-item">
               <a href="cntagastoscaja.php" class="nav-link <?php echo ($pagina == 'gtocaja') ? "active seleccionado" : ""; ?>  ">
               <i class="nav-icon fas fa-dollar-sign "></i>
-                <p>Gastos Caja</p>
+                <p>Gastos Caja Chica</p>
               </a>
             </li>
 <!--
