@@ -1,5 +1,5 @@
 <?php
-$pagina = "cxp";
+$pagina = "gastoscajag";
 
 include_once "templates/header.php";
 include_once "templates/barra.php";

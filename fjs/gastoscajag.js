@@ -231,7 +231,8 @@ $(document).ready(function() {
     $(document).on("click", "#btnGuardar", function() {
         folio = $("#folio").val();
         fecha = $("#fecha").val();
-       
+        fechareg = $("#fechasys").val();
+
         id_caja = $("#id_caja").val();
         id_partida = $("#id_partida").val();
         id_subpartida = $("#id_subpartida").val();
@@ -254,7 +255,7 @@ $(document).ready(function() {
                 type: "POST",
                 url: "bd/crudgastog.php",
                 dataType: "json",
-                data: { fecha: fecha,  id_partida: id_partida, id_subpartida: id_subpartida, concepto: concepto, id_caja: id_caja,
+                data: { fecha: fecha,fechareg: fechareg,  id_partida: id_partida, id_subpartida: id_subpartida, concepto: concepto, id_caja: id_caja,
                     documento: documento, referencia: referencia,  total: total, usuario: usuario, folio: folio, opcion: opcion },
                 success: function(res) {
                     
@@ -271,9 +272,9 @@ $(document).ready(function() {
                             icon: 'success',
                         })
 
-                        /*window.setTimeout(function() {
-                            window.location.href = "cntacxp.php";
-                        }, 1500);*/
+                        window.setTimeout(function() {
+                            window.location.href = "cntacajag.php";
+                        }, 1500);
 
                     }
                 }

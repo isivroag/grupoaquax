@@ -81,7 +81,7 @@ $(document).ready(function() {
     $(document).on("click", ".btnIngreso", function() {
         fila = $(this).closest("tr");
         id = parseInt(fila.find('td:eq(0)').text());
-        
+        window.location.href = "ingresoscajag.php?idcaja=" + id;
       
         
 
