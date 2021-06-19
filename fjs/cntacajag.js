@@ -4,7 +4,7 @@ $(document).ready(function() {
 
     tablaVis = $("#tablaV").DataTable({
 
-        dom: "<'row justify-content-center'<'col-sm-12 col-md-4 form-group'l><'col-sm-12 col-md-4 form-group'B><'col-sm-12 col-md-4 form-group'f>>" +
+        dom: "<'row justify-content-center'<'col-sm-12 col-md-4 form-group text'l><'col-sm-12 col-md-4 form-group text-center'B><'col-sm-12 col-md-4 form-group'f>>" +
             "<'row'<'col-sm-12'tr>>" +
             "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
 
@@ -36,6 +36,7 @@ $(document).ready(function() {
             "data": null,
             "defaultContent": "<div class='text-center'><div class='btn-group'><button class='btn btn-sm btn-success  btnIngreso'><i class='fas fa-arrow-up'></i> <i class='fas fa-dollar-sign'></i></button>\
             <button class='btn btn-sm bg-purple btnEgreso'><i class='fas fa-arrow-down'></i> <i class='fas fa-dollar-sign'></i></button>\
+            <button class='btn btn-sm bg-info btnbanco'><i class='fas fa-university'></i></button>\
             <button class='btn btn-sm bg-primary btnMov'><i class='fas fa-bars'></i></button></div></div>"
             
         },{
@@ -75,9 +76,23 @@ $(document).ready(function() {
 
  
 
+    $(document).on("click", ".btnMov", function() {
+        fila = $(this).closest("tr");
+        id = parseInt(fila.find('td:eq(0)').text());
+        window.location.href = "movcajag.php?id=" + id;
+      
+        
 
+    });
 
+    $(document).on("click", ".btnbanco", function() {
+        fila = $(this).closest("tr");
+        id = parseInt(fila.find('td:eq(0)').text());
+        window.location.href = "depositoscajag.php?idcaja=" + id;
+      
+        
 
+    });
     $(document).on("click", ".btnIngreso", function() {
         fila = $(this).closest("tr");
         id = parseInt(fila.find('td:eq(0)').text());
