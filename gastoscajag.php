@@ -39,8 +39,10 @@ if ($folio != "") {
         $docuumento = $dt['documento'];
         $referencia = $dt['referencia'];
         $total = $dt['total'];;
-        $idcaja= $dt['id_cuenta'];;
-        $caja= $dt['nom_cuenta'];;
+        $idcaja = $dt['id_cuenta'];
+        $caja = $dt['nom_cuenta'];
+        $id_prov = $dt['id_prov'];
+        $nombre = $dt['nombre'];
     }
 
 
@@ -60,7 +62,8 @@ if ($folio != "") {
     $facturado = "";
     $documento = "";
     $referencia = "";
-   
+    $id_prov = '';
+    $nombre = '';
 
     $total = 0;
 
@@ -70,9 +73,8 @@ if ($folio != "") {
         $resultacnta->execute();
         $datacnta = $resultacnta->fetchAll(PDO::FETCH_ASSOC);
         foreach ($datacnta as $rowdata) {
-            $caja=$rowdata['nom_cuenta'];
+            $caja = $rowdata['nom_cuenta'];
         }
-
     }
 }
 
@@ -83,6 +85,11 @@ $resultadocon = $conexion->prepare($consultacon);
 $resultadocon->execute();
 $datacon = $resultadocon->fetchAll(PDO::FETCH_ASSOC);
 
+
+$consultac = "SELECT * FROM w_proveedor WHERE status=1 ORDER BY id_prov";
+$resultadoc = $conexion->prepare($consultac);
+$resultadoc->execute();
+$datac = $resultadoc->fetchAll(PDO::FETCH_ASSOC);
 
 
 ?>
@@ -135,16 +142,16 @@ $datacon = $resultadocon->fetchAll(PDO::FETCH_ASSOC);
 
                                 <div class="row justify-content-sm-center p-3">
 
-                                <div class="col-lg-2">
-                                    <input type="hidden" class="form-control" name="tokenid" id="tokenid" value="<?php echo $tokenid; ?>">
-                                    <input type="hidden" class="form-control" name="opcion" id="opcion" value="<?php echo $opcion; ?>">
-                                    <input type="hidden" class="form-control" name="id_caja" id="id_caja" value="<?php echo $idcaja; ?>">
-                                    <div class="form-group input-group-sm">
-                                    <label for="caja" class="col-form-label">Caja:</label>
-                                    <input type="text" class="form-control" name="caja" id="caja" value="<?php echo  $caja; ?>" disabled>
-                                    </div>
+                                    <div class="col-lg-2">
+                                        <input type="hidden" class="form-control" name="tokenid" id="tokenid" value="<?php echo $tokenid; ?>">
+                                        <input type="hidden" class="form-control" name="opcion" id="opcion" value="<?php echo $opcion; ?>">
+                                        <input type="hidden" class="form-control" name="id_caja" id="id_caja" value="<?php echo $idcaja; ?>">
+                                        <div class="form-group input-group-sm">
+                                            <label for="caja" class="col-form-label">Caja:</label>
+                                            <input type="text" class="form-control" name="caja" id="caja" value="<?php echo  $caja; ?>" disabled>
+                                        </div>
 
-                                </div>
+                                    </div>
 
                                     <div class="col-lg-2">
                                         <div class="form-group input-group-sm">
@@ -194,6 +201,24 @@ $datacon = $resultadocon->fetchAll(PDO::FETCH_ASSOC);
 
 
                                 </div>
+
+                                <div class="row justify-content-sm-center">
+                                    <div class="col-lg-9">
+                                        <input type="hidden" class="form-control" name="id_prov" id="id_prov" value="<?php echo $id_prov; ?>">
+                                        <label for="nombre" class="col-form-label">Proveedor:</label>
+
+                                        <div class="input-group input-group-sm">
+
+                                            <input type="text" class="form-control" name="nombre" id="nombre" value="<?php echo $nombre; ?>" disabled>
+                                            <span class="input-group-append">
+                                                <button id="bproveedor" type="button" class="btn btn-primary "><i class="fas fa-search"></i></button>
+
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+
+
                                 <div class="row justify-content-sm-center" style="padding:5px 0px;margin-bottom:5px">
                                     <div class="col-lg-4">
                                         <div class="form-group">
@@ -413,7 +438,50 @@ $datacon = $resultadocon->fetchAll(PDO::FETCH_ASSOC);
         </div>
     </section>
 
+    <section>
+        <div class="container">
+            <div class="modal fade" id="modalProveedor" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-xl" role="document">
+                    <div class="modal-content w-auto">
+                        <div class="modal-header bg-gradient-purple">
+                            <h5 class="modal-title" id="exampleModalLabel">BUSCAR PROSPECTO</h5>
 
+                        </div>
+                        <br>
+                        <div class="table-hover table-responsive w-auto " style="padding:10px">
+                            <table name="tablaProv" id="tablaProv" class="table table-sm table-striped text-nowrap table-bordered table-condensed " style="width:100%">
+                                <thead class="text-center">
+                                    <tr>
+                                        <th>Id</th>
+                                        <th>RFC</th>
+                                        <th>Proveedor</th>
+
+                                        <th>Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                    foreach ($datac as $datc) {
+                                    ?>
+                                        <tr>
+                                            <td><?php echo $datc['id_prov'] ?></td>
+                                            <td><?php echo $datc['rfc'] ?></td>
+                                            <td><?php echo $datc['nombre'] ?></td>
+
+
+                                            <td></td>
+                                        </tr>
+                                    <?php
+                                    }
+                                    ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
 
     <!-- /.content -->

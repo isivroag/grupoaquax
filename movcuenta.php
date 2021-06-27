@@ -225,7 +225,7 @@ $datacon = $resultadocon->fetchAll(PDO::FETCH_ASSOC);
                                         <div class="form-group input-group-sm ">
 
 
-                                            <label for="metodo" class="col-form-label">Médoto:</label>
+                                            <label for="metodo" class="col-form-label">Método:</label>
 
                                             <select class="form-control" name="metodo" id="metodo">
                                             <option id="nmetodo" value="nmetodo" disabled <?php echo $metodo_mov == '' ? 'selected' : '' ?>>Elije un metodo</option>

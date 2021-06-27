@@ -159,11 +159,54 @@ $(document).ready(function() {
     });
 
 
+    tablaProv = $("#tablaProv").DataTable({
 
 
- 
 
+        "columnDefs": [{
+            "targets": -1,
+            "data": null,
+            "defaultContent": "<div class='text-center'><div class='btn-group'><button class='btn btn-sm btn-success btnSelProveedor'><i class='fas fa-hand-pointer'></i></button></div></div>"
+        }],
 
+        //Para cambiar el lenguaje a español
+        "language": {
+            "lengthMenu": "Mostrar _MENU_ registros",
+            "zeroRecords": "No se encontraron resultados",
+            "info": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+            "infoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+            "infoFiltered": "(filtrado de un total de _MAX_ registros)",
+            "sSearch": "Buscar:",
+            "oPaginate": {
+                "sFirst": "Primero",
+                "sLast": "Último",
+                "sNext": "Siguiente",
+                "sPrevious": "Anterior"
+            },
+            "sProcessing": "Procesando...",
+        }
+    });
+
+    $(document).on("click", "#bproveedor", function() {
+
+        
+
+        $("#modalProveedor").modal("show");
+
+    });
+    $(document).on("click", ".btnSelProveedor", function() {
+        fila = $(this).closest("tr");
+
+        idprov = fila.find('td:eq(0)').text();
+        nomprov = fila.find('td:eq(2)').text();
+
+        opcion = 1;
+
+        $("#id_prov").val(idprov);
+        $("#nombre").val(nomprov);
+        $("#modalProveedor").modal("hide");
+
+    });
 
 
     $(document).on("click", "#bpartida", function() {
@@ -234,6 +277,7 @@ $(document).ready(function() {
         fechareg = $("#fechasys").val();
 
         id_caja = $("#id_caja").val();
+        id_prov = $("#id_prov").val();
         id_partida = $("#id_partida").val();
         id_subpartida = $("#id_subpartida").val();
         concepto = $("#concepto").val();
@@ -248,7 +292,7 @@ $(document).ready(function() {
 
 
 
-        if (total.length != 0 && concepto.length != 0 && id_partida.length != 0 && id_caja != 0
+        if (total.length != 0 && id_prov.length != 0 && concepto.length != 0 && id_partida.length != 0 && id_caja != 0
             && id_subpartida.length != 0 && documento.length!=0) {
             $.ajax({
 
@@ -256,7 +300,7 @@ $(document).ready(function() {
                 url: "bd/crudgastog.php",
                 dataType: "json",
                 data: { fecha: fecha,fechareg: fechareg,  id_partida: id_partida, id_subpartida: id_subpartida, concepto: concepto, id_caja: id_caja,
-                    documento: documento, referencia: referencia,  total: total, usuario: usuario, folio: folio, opcion: opcion },
+                    id_prov: id_prov, documento: documento, referencia: referencia,  total: total, usuario: usuario, folio: folio, opcion: opcion },
                 success: function(res) {
                     
                     if (res == 0) {

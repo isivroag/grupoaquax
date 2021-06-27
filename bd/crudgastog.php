@@ -9,7 +9,7 @@ $folio = (isset($_POST['folio'])) ? $_POST['folio'] : '';
 
 $fecha = (isset($_POST['fecha'])) ? $_POST['fecha'] : '';
 $fechareg = (isset($_POST['fechareg'])) ? $_POST['fechareg'] : '';
-
+$id_prov = (isset($_POST['id_prov'])) ? $_POST['id_prov'] : '';
 $id_partida = (isset($_POST['id_partida'])) ? $_POST['id_partida'] : '';
 $id_subpartida = (isset($_POST['id_subpartida'])) ? $_POST['id_subpartida'] : '';
 $id_caja = (isset($_POST['id_caja'])) ? $_POST['id_caja'] : '';
@@ -41,7 +41,7 @@ switch ($opcion) {
             }
             $saldo_fin = $saldo_ini - $total;
 
-            $consulta = "INSERT INTO w_gastosg (fecha,fechareg,id_partida,id_subpartida,concepto,documento,referencia,total,usuario,id_cuenta,saldo_ini,saldo_fin) VALUES ('$fecha','$fechareg','$id_partida','$id_subpartida','$concepto','$documento','$referencia','$total','$usuario','$id_caja','$saldo_ini','$saldo_fin')";
+            $consulta = "INSERT INTO w_gastosg (fecha,fechareg,id_partida,id_subpartida,concepto,documento,referencia,total,usuario,id_cuenta,saldo_ini,saldo_fin,id_prov) VALUES ('$fecha','$fechareg','$id_partida','$id_subpartida','$concepto','$documento','$referencia','$total','$usuario','$id_caja','$saldo_ini','$saldo_fin','$id_prov')";
             $resultado = $conexion->prepare($consulta);
 
             if ($resultado->execute()) {
