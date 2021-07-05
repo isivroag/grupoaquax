@@ -147,10 +147,10 @@
 <?php } ?>
   <?php if ($_SESSION['s_rol'] == '5' || $_SESSION['s_rol'] == '6'|| $_SESSION['s_rol'] == '2' ) {
             ?>
-        <li class="nav-item has-treeview <?php echo ($pagina == 'gtocaja' || $pagina == 'caja' || $pagina == 'gastoscajag') ? "menu-open" : ""; ?>">
+        <li class="nav-item has-treeview <?php echo ($pagina == 'gtocaja' || $pagina == 'caja' || $pagina == 'gastoscajag' || $pagina == 'cortedetallado') ? "menu-open" : ""; ?>">
 
 
-          <a href="#" class="nav-link <?php echo ($pagina == 'gtocaja' || $pagina == 'caja' || $pagina == 'gastoscajag') ? "active" : ""; ?>">
+          <a href="#" class="nav-link <?php echo ($pagina == 'gtocaja' || $pagina == 'caja' || $pagina == 'gastoscajag' || $pagina == 'cortedetallado') ? "active" : ""; ?>">
           <span class="fa-stack">
           <i class="fas fa-cash-register nav-icon"></i>
               
@@ -174,6 +174,13 @@
               <a href="cntagastoscaja.php" class="nav-link <?php echo ($pagina == 'gtocaja') ? "active seleccionado" : ""; ?>  ">
               <i class="nav-icon fas fa-dollar-sign "></i>
                 <p>Gastos Caja Chica</p>
+              </a>
+            </li>
+
+            <li class="nav-item">
+              <a href="cortedetallado.php" class="nav-link <?php echo ($pagina == 'cortedetallado') ? "active seleccionado" : ""; ?>  ">
+              <i class="nav-icon fas fa-book "></i>
+                <p>Corte Detallado</p>
               </a>
             </li>
 <!--
