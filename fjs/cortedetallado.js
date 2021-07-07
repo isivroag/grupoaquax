@@ -4,6 +4,7 @@ $(document).ready(function () {
 
   tablaVis = $('#tablaV').DataTable({
     paging: false,
+    info: false,
 
     dom:
       "<'row justify-content-center'<'col-sm-12 col-md-4 form-group 'l><'col-sm-12 col-md-4 form-group text-center'B><'col-sm-12 col-md-4 form-group 'f>>" +
@@ -17,7 +18,7 @@ $(document).ready(function () {
         titleAttr: 'Exportar a Excel',
         title: 'Reporte de Egresos',
         className: 'btn bg-success ',
-        exportOptions: { columns: [0, 1, 2, 3, 4] },
+        exportOptions: { columns: [0, 1, 2, 3, 4,5,6,7] },
       },
       {
         extend: 'pdfHtml5',
@@ -25,7 +26,7 @@ $(document).ready(function () {
         titleAttr: 'Exportar a PDF',
         title: 'Reporte de Egresos',
         className: 'btn bg-danger',
-        exportOptions: { columns: [0, 1, 2, 3, 4] },
+        exportOptions: { columns: [0, 1, 2, 3, 4,5,6,7] },
       },
     ],
 
@@ -73,12 +74,61 @@ $(document).ready(function () {
               mes = 'DICIEMBRE'
               break
             case 0:
-              mes="";
-              break;
+              mes = ''
+              break
           }
 
           return mes
         },
+      },
+    ],
+
+    //Para cambiar el lenguaje a español
+    language: {
+      lengthMenu: 'Mostrar _MENU_ registros',
+      zeroRecords: 'No se encontraron resultados',
+      info:
+        'Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros',
+      infoEmpty: 'Mostrando registros del 0 al 0 de un total de 0 registros',
+      infoFiltered: '(filtrado de un total de _MAX_ registros)',
+      sSearch: 'Buscar:',
+      oPaginate: {
+        sFirst: 'Primero',
+        sLast: 'Último',
+        sNext: 'Siguiente',
+        sPrevious: 'Anterior',
+      },
+      sProcessing: 'Procesando...',
+    },
+
+    rowCallback: function (row, data) {},
+  })
+
+  tablaG = $('#tablaG').DataTable({
+    paging: false,
+    info: false,
+
+    dom:
+      "<'row justify-content-center'<'col-sm-12 col-md-4 form-group 'l><'col-sm-12 col-md-4 form-group text-center'B><'col-sm-12 col-md-4 form-group 'f>>" +
+      "<'row'<'col-sm-12'tr>>" +
+      "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
+
+    buttons: [
+      {
+        extend: 'excelHtml5',
+        text: "<i class='fas fa-file-excel'> Excel</i>",
+        titleAttr: 'Exportar a Excel',
+        title: 'Reporte de Egresos',
+        className: 'btn bg-success ',
+        exportOptions: { columns: [0, 1, 2, 3, 4] },
+      },
+      {
+        extend: 'pdfHtml5',
+        text: "<i class='far fa-file-pdf'> PDF</i>",
+        titleAttr: 'Exportar a PDF',
+        title: 'Reporte de Egresos',
+        className: 'btn bg-danger',
+        exportOptions: { columns: [0, 1, 2, 3, 4] },
       },
     ],
 
@@ -118,6 +168,17 @@ $(document).ready(function () {
     tablaVis.clear()
     tablaVis.draw()
 
+    tablaG.clear()
+    tablaG.draw()
+    total=0;
+    totalfacturado=0;
+    totalefectivofact=0;
+    totalefectivo=0;
+    totalefectivono=0;
+    totaltransferencia=0;
+    totalfiscal=0;
+    
+
     if (inicio != '' && final != '') {
       $.ajax({
         type: 'POST',
@@ -126,6 +187,27 @@ $(document).ready(function () {
         data: { inicio: inicio, final: final },
         success: function (data) {
           for (var i = 0; i < data.length; i++) {
+            
+            total += parseFloat(data[i].total)
+            if (data[i].factura == 'FACTURADO') {
+              totalfacturado += parseFloat(data[i].total)
+
+              if (data[i].metodo == 'EFECTIVO') {
+                totalefectivofact += parseFloat(data[i].total)
+                totalefectivo += parseFloat(data[i].total)
+              } else {
+                totaltransferencia += parseFloat(data[i].total)
+              }
+            } else {
+              if (data[i].metodo == 'EFECTIVO') {
+                totalefectivono += parseFloat(data[i].total)
+                totalefectivo += parseFloat(data[i].total)
+                totalfiscal+=parseFloat(data[i].totalfiscal)
+              } else {
+                totaltransferencia += parseFloat(data[i].total)
+              }
+            }
+
             tablaVis.row
               .add([
                 data[i].folio_cob,
@@ -136,6 +218,39 @@ $(document).ready(function () {
                 data[i].total,
                 data[i].factura,
                 data[i].metodo,
+              ])
+              .draw()
+
+            //tabla += '<tr><td>' + res[i].id_objetivo + '</td><td>' + res[i].desc_objetivo + '</td><td class="text-center">' + icono + '</td><td class="text-center"></td></tr>';
+          }
+          $('#transferencia').val(totaltransferencia);
+          $('#efectivofact').val(totalefectivofact);
+          $('#totalfact').val(totalfacturado);
+          $('#efectivo').val(totalefectivo);
+          $('#efectivofact2').val(totalefectivofact);
+          $('#efectivono').val(totalefectivono);
+          $('#totaling').val(total);
+          $('#totalfact2').val(totalefectivofact);
+          $('#efectivodep').val(totalfiscal);
+          $('#deposito').val(totalfiscal+totalefectivofact);
+          //resultados
+        },
+      })
+
+      $.ajax({
+        type: 'POST',
+        url: 'bd/buscargastoscaja.php',
+        dataType: 'json',
+        data: { inicio: inicio, final: final },
+        success: function (data) {
+          for (var i = 0; i < data.length; i++) {
+            tablaG.row
+              .add([
+                data[i].folio_gto,
+                data[i].fecha,
+                data[i].referencia,
+                data[i].concepto,
+                data[i].total,
               ])
               .draw()
 

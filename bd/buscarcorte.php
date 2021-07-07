@@ -13,7 +13,7 @@ $final = (isset($_POST['final'])) ? $_POST['final'] : '';
 
 
 
-$consulta = "SELECT cobranza.folio_cob,alumno.nombre,cobranza.fecha,detallecob.id_concepto,detallecob.descripcion,detallecob.mes,detallecob.total,if(cobranza.factura=1,'FACTURADO','PENDIENTE') AS factura,cobranza.metodo
+$consulta = "SELECT cobranza.folio_cob,alumno.nombre,cobranza.fecha,detallecob.id_concepto,detallecob.descripcion,detallecob.mes,detallecob.total,detallecob.totalfiscal,if(cobranza.factura=1,'FACTURADO','PENDIENTE') AS factura,cobranza.metodo
 FROM cobranza join detallecob on cobranza.folio_cob=detallecob.folio_cob join alumno on cobranza.id_cliente=alumno.id_alumno 
 where cobranza.estado=1 and cobranza.fecha BETWEEN '$inicio' and '$final'";
 
