@@ -26,7 +26,7 @@ $totalefectivofact = 0;
 $totalfacturado = 0;
 $totalefectivo = 0;
 $totalefectivono = 0;
-$totalfiscal=0;
+$totalfiscal = 0;
 
 $resultado = $conexion->prepare($consulta);
 $resultado->execute();
@@ -125,7 +125,7 @@ $message = "";
                                         <?php
                                         foreach ($data as $dat) {
                                             $totaling += $dat['total'];
-                                            
+
                                             if ($dat['factura'] == 'FACTURADO') {
                                                 $totalfacturado += $dat['total'];
 
@@ -187,7 +187,9 @@ $message = "";
                                     </thead>
                                     <tbody>
                                         <?php
+                                        $totalgastos = 0;
                                         foreach ($datag as $datg) {
+                                            $totalgastos += $datg['total'];
                                         ?>
                                             <tr>
                                                 <td><?php echo $datg['folio_gto'] ?></td>
@@ -217,35 +219,91 @@ $message = "";
                                         <div class="col-sm-2">
                                             <div class="form-group input-group-sm">
                                                 <label for="transferencia" class="col-form-label">Transferencias:</label>
-                                                <input type="text" class="form-control" name="transferencia" id="transferencia" autocomplete="off" value='<?php echo $totaltransferencia; ?>'>
+
+                                                <div class="input-group input-group-sm">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">
+                                                            <i class="fas fa-dollar-sign"></i>
+                                                        </span>
+                                                    </div>
+
+                                                    <input type="text" class="form-control text-right" name="transferencia" id="transferencia" autocomplete="off" value='<?php echo $totaltransferencia; ?>'>
+                                                </div>
+
+
                                             </div>
                                         </div>
 
                                         <div class="col-sm-2">
                                             <div class="form-group input-group-sm">
                                                 <label for="efectivofact" class="col-form-label">Efectivo Facturado:</label>
-                                                <input type="text" class="form-control" name="efectivofact" id="efectivofact" autocomplete="off" value='<?php echo $totalefectivofact; ?>'>
+                                                <div class="input-group input-group-sm">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">
+                                                            <i class="fas fa-dollar-sign"></i>
+                                                        </span>
+                                                    </div>
+
+                                                    <input type="text" class="form-control text-right" name="efectivofact" id="efectivofact" autocomplete="off" value='<?php echo $totalefectivofact; ?>'>
+                                                </div>
+
+
                                             </div>
                                         </div>
 
                                         <div class="col-sm-2">
                                             <div class="form-group input-group-sm">
                                                 <label for="totalfact" class="col-form-label">Total Facturado:</label>
-                                                <input type="text" class="form-control" name="totalfact" id="totalfact" autocomplete="off" value='<?php echo $totalfacturado; ?>'>
+
+                                                <div class="input-group input-group-sm">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">
+                                                            <i class="fas fa-dollar-sign"></i>
+                                                        </span>
+                                                    </div>
+
+                                                    <input type="text" class="form-control text-right" name="totalfact" id="totalfact" autocomplete="off" value='<?php echo $totalfacturado; ?>'>
+                                                </div>
+
+
+
                                             </div>
                                         </div>
 
                                         <div class="col-sm-2">
                                             <div class="form-group input-group-sm">
                                                 <label for="efectivofact2" class="col-form-label">Efectivo Facturado:</label>
-                                                <input type="text" class="form-control" name="efectivofact2" id="efectivofact2" autocomplete="off" value='<?php echo $totalefectivofact; ?>'>
+
+                                                <div class="input-group input-group-sm">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">
+                                                            <i class="fas fa-dollar-sign"></i>
+                                                        </span>
+                                                    </div>
+
+                                                    <input type="text" class="form-control text-right" name="efectivofact2" id="efectivofact2" autocomplete="off" value='<?php echo $totalefectivofact; ?>'>
+                                                </div>
+
+
+
                                             </div>
                                         </div>
 
                                         <div class="col-sm-2">
                                             <div class="form-group input-group-sm">
                                                 <label for="efectivono" class="col-form-label">Efectivo Pendiente Fact:</label>
-                                                <input type="text" class="form-control" name="efectivono" id="efectivono" autocomplete="off" value='<?php echo $totalefectivono; ?>'>
+
+                                                <div class="input-group input-group-sm">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">
+                                                            <i class="fas fa-dollar-sign"></i>
+                                                        </span>
+                                                    </div>
+
+                                                    <input type="text" class="form-control text-right" name="efectivono" id="efectivono" autocomplete="off" value='<?php echo $totalefectivono; ?>'>
+                                                </div>
+
+
                                             </div>
                                         </div>
 
@@ -259,36 +317,92 @@ $message = "";
                                     </div>
 
                                     <div class="row justify-content-end">
-                                        <div class="col-sm-2" >
+                                        <div class="col-sm-2">
                                             <div class="form-group input-group-sm">
                                                 <label for="totaling" class="col-form-label">Total Ingresos:</label>
-                                                <input type="text" class="form-control" name="totaling" id="totaling" autocomplete="off" value='<?php echo $totaling; ?>'>
+
+                                                <div class="input-group input-group-sm">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">
+                                                            <i class="fas fa-dollar-sign"></i>
+                                                        </span>
+                                                    </div>
+
+                                                    <input type="text" class="form-control text-right" name="totaling" id="totaling" autocomplete="off" value='<?php echo $totaling; ?>'>
+                                                </div>
+
+
+
                                             </div>
                                         </div>
                                     </div>
 
                                     <div class="row justify-content-end">
 
-                                    <div class="col-sm-2">
+                                        <div class="col-sm-2">
                                             <div class="form-group input-group-sm">
-                                                <label for="totalfact2" class="col-form-label">Total Facturado:</label>
-                                                <input type="text" class="form-control" name="totalfact2" id="totalfact2" autocomplete="off" value='<?php echo $totalefectivofact; ?>'>
+                                                <label for="totalfact2" class="col-form-label">Efectivo Facturado:</label>
+
+                                                <div class="input-group input-group-sm">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">
+                                                            <i class="fas fa-dollar-sign"></i>
+                                                        </span>
+                                                    </div>
+
+                                                    <input type="text" class="form-control text-right" name="totalfact2" id="totalfact2" autocomplete="off" value='<?php echo $totalefectivofact; ?>'>
+                                                </div>
+
+
                                             </div>
                                         </div>
-                                        <div class="col-sm-2" >
+                                        <div class="col-sm-2">
                                             <div class="form-group input-group-sm">
                                                 <label for="efectivodep" class="col-form-label">% Efectivo:</label>
-                                                <input type="text" class="form-control" name="efectivodep" id="efectivodep" autocomplete="off" value='<?php echo $totalfiscal; ?>'>
+
+                                                <div class="input-group input-group-sm">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">
+                                                            <i class="fas fa-dollar-sign"></i>
+                                                        </span>
+                                                    </div>
+
+                                                    <input type="text" class="form-control text-right" name="efectivodep" id="efectivodep" autocomplete="off" value='<?php echo $totalfiscal; ?>'>
+                                                </div>
                                             </div>
                                         </div>
 
-                                        <div class="col-sm-2" >
+                                        <div class="col-sm-2">
+                                            <div class="form-group input-group-sm">
+                                                <label for="totalgastos" class="col-form-label">Total Gastos:</label>
+                                                <div class="input-group input-group-sm">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">
+                                                            <i class="fas fa-dollar-sign"></i>
+                                                        </span>
+                                                    </div>
+                                                    <input type="text" class="form-control text-right" name="totalgastos" id="totalgastos" autocomplete="off" value='<?php echo $totalgastos; ?>'>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="col-sm-2">
                                             <div class="form-group input-group-sm">
                                                 <label for="deposito" class="col-form-label">Sugerencia Deposito:</label>
-                                                <input type="text" class="form-control" name="deposito" id="deposito" autocomplete="off" value='<?php echo $totalfiscal+$totalefectivofact; ?>'>
+                                                <div class="input-group input-group-sm">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">
+                                                            <i class="fas fa-dollar-sign"></i>
+                                                        </span>
+                                                    </div>
+                                                    <input type="text" class="form-control text-right" name="deposito" id="deposito" autocomplete="off" value='<?php echo ($totalfiscal + $totalefectivofact)-$totalgastos; ?>'>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
+
+                                  
                                 </div>
                             </div>
                         </div>

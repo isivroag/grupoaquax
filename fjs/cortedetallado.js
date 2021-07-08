@@ -35,7 +35,7 @@ $(document).ready(function () {
         targets: 4,
         render: function (data, type, row, meta) {
           mes = 0
-          console.log(data)
+         
           switch (parseInt(data)) {
             case 1:
               mes = 'ENERO'
@@ -170,13 +170,14 @@ $(document).ready(function () {
 
     tablaG.clear()
     tablaG.draw()
-    total=0;
-    totalfacturado=0;
-    totalefectivofact=0;
-    totalefectivo=0;
-    totalefectivono=0;
-    totaltransferencia=0;
-    totalfiscal=0;
+    var total=0;
+    var totalfacturado=0;
+    var totalefectivofact=0;
+    var totalefectivo=0;
+    var totalefectivono=0;
+    var totaltransferencia=0;
+    var totalfiscal=0;
+    var totalgasto=0;
     
 
     if (inicio != '' && final != '') {
@@ -232,7 +233,7 @@ $(document).ready(function () {
           $('#totaling').val(total);
           $('#totalfact2').val(totalefectivofact);
           $('#efectivodep').val(totalfiscal);
-          $('#deposito').val(totalfiscal+totalefectivofact);
+          $('#deposito').val((totalfiscal+totalefectivofact)-totalgasto);
           //resultados
         },
       })
@@ -244,6 +245,7 @@ $(document).ready(function () {
         data: { inicio: inicio, final: final },
         success: function (data) {
           for (var i = 0; i < data.length; i++) {
+            totalgasto+=parseFloat( data[i].total);
             tablaG.row
               .add([
                 data[i].folio_gto,
@@ -256,8 +258,17 @@ $(document).ready(function () {
 
             //tabla += '<tr><td>' + res[i].id_objetivo + '</td><td>' + res[i].desc_objetivo + '</td><td class="text-center">' + icono + '</td><td class="text-center"></td></tr>';
           }
+          console.log(totalgasto);
+          $('#totalgastos').val(totalgasto);
+          
+          
         },
       })
+    deposito=parseFloat($('#deposito').val()) - parseFloat($('#totalgastos').val());
+    $('#deposito').val(deposito);
+    
+    
+
     } else {
       alert('Selecciona ambas fechas')
     }
