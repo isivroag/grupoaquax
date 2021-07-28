@@ -50,7 +50,7 @@ $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
         </div>
         <div class="card-body">
           <div class="row justify-content-center">
-            <div class="col-lg-8">
+            <div class="col-lg-12">
               <div class="card card-widget">
                 <div class="card-header bg-gradient-primary">
                   <h3 class="text-center"><?php echo 'Horario ' . $hoy ?></h3>
@@ -80,7 +80,7 @@ $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
 
                   ?>
                   <div class="card card-primary p-2" style=" border: 3px solid #007bff;">
-                      <div class="row ">
+                      <div class="row justify-content-center">
                         <div class="col-sm-2">
                           <div class="form-group">
                             <label for="hora<?php echo $id_grupo?>" class="col-form-label">HORA</label>
@@ -113,15 +113,16 @@ $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
                       </div>
 
                       <div class="row justify-content-center">
-                        <div class="col-sm-8">
+                        <div class="col-sm-11">
                           <div class="table-responsive">
-                            <table name="" id="" class="tablav display table table-sm table-striped table-bordered table-condensed text-nowrap  mx-auto " style="width:100%">
+                            <table name="" id="" class="tablad1 display table table-sm table-striped table-bordered table-condensed text-nowrap  mx-auto " style="width:100%">
                               <thead class="text-center bg-blue">
                                 <tr>
                                   <th>ID </th>
                                   <th>Alumno</th>
                                   <th>SubGpo</th>
                                   <th>Nivel</th>
+                                  <th>Acciones</th>
                                 </tr>
                               </thead>
                               <tbody>
@@ -133,6 +134,7 @@ $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
                                     <td><?php echo $dat['nombre'] ?></td>
                                     <td><?php echo $dat['id_sub'] ?></td>
                                     <td><?php echo $dat['ncorto'] ?></td>
+                                    <td></td>
 
                                   </tr>
                                 <?php
