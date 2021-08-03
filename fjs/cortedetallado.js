@@ -18,7 +18,7 @@ $(document).ready(function () {
         titleAttr: 'Exportar a Excel',
         title: 'Reporte de Egresos',
         className: 'btn bg-success ',
-        exportOptions: { columns: [0, 1, 2, 3, 4,5,6,7] },
+        exportOptions: { columns: [0, 1, 2, 3, 4, 5, 6, 7] },
       },
       {
         extend: 'pdfHtml5',
@@ -26,7 +26,7 @@ $(document).ready(function () {
         titleAttr: 'Exportar a PDF',
         title: 'Reporte de Egresos',
         className: 'btn bg-danger',
-        exportOptions: { columns: [0, 1, 2, 3, 4,5,6,7] },
+        exportOptions: { columns: [0, 1, 2, 3, 4, 5, 6, 7] },
       },
     ],
 
@@ -35,7 +35,7 @@ $(document).ready(function () {
         targets: 4,
         render: function (data, type, row, meta) {
           mes = 0
-         
+
           switch (parseInt(data)) {
             case 1:
               mes = 'ENERO'
@@ -101,7 +101,7 @@ $(document).ready(function () {
       sProcessing: 'Procesando...',
     },
 
-    rowCallback: function (row, data) {},
+    rowCallback: function (row, data) { },
   })
 
   tablaG = $('#tablaG').DataTable({
@@ -150,7 +150,7 @@ $(document).ready(function () {
       sProcessing: 'Procesando...',
     },
 
-    rowCallback: function (row, data) {},
+    rowCallback: function (row, data) { },
   })
 
   function commaSeparateNumber(val) {
@@ -160,25 +160,85 @@ $(document).ready(function () {
     val = '$ ' + val
     return val
   }
+  $('#btnGuardarc').click(function () {
+    dia = $('#fechac').val()
+    transferencia = $('#transferencia').val()
+    efectivofact = $('#efectivofact').val()
+    efectivo = $('#efectivo').val()
+    totaling = $('#totaling').val()
+    efectivodep = $('#efectivodep').val()
+    totalgastos = $('#totalgastos').val()
+    deposito = $('#deposito').val()
+
+    if (
+      transferencia.length == 0 ||
+      efectivofact.length == 0 ||
+      efectivo.length == 0 ||
+      totaling.length == 0 ||
+      efectivodep.length == 0 ||
+      totalgastos.length == 0 ||
+      deposito.length == 0 ||
+      dia.length == 0
+    ) {
+      Swal.fire({
+        title: 'Datos Faltantes',
+        text: 'Debe ingresar todos los datos del Prospecto',
+        icon: 'warning',
+      })
+      return false
+    } else {
+      $.ajax({
+        url: 'bd/guardarcorte.php',
+        type: 'POST',
+        dataType: 'json',
+        data: {
+          dia: dia,
+          transferencia: transferencia,
+          efectivofact: efectivofact,
+          efectivo: efectivo,
+          totaling: totaling,
+          efectivodep: efectivodep,
+          totalgastos: totalgastos,
+          deposito: deposito,
+        },
+        success: function (data) {
+          console.log(data)
+          if (data == 1) {
+            Swal.fire({
+              title: 'Corte Guardado',
+              text: 'La informacion ha sido Guardada',
+              icon: 'success',
+            })
+          } else {
+            Swal.fire({
+              title: 'Ya Existe el Corte',
+              text: 'Los datos de este día ya existen',
+              icon: 'warning',
+            })
+          }
+        }
+      })
+
+    }
+  })
 
   $('#btnBuscar').click(function () {
     var inicio = $('#inicio').val()
-    var final = $('#final').val()
+    var final = $('#inicio').val()
 
     tablaVis.clear()
     tablaVis.draw()
 
     tablaG.clear()
     tablaG.draw()
-    var total=0;
-    var totalfacturado=0;
-    var totalefectivofact=0;
-    var totalefectivo=0;
-    var totalefectivono=0;
-    var totaltransferencia=0;
-    var totalfiscal=0;
-    var totalgasto=0;
-    
+    var total = 0
+    var totalfacturado = 0
+    var totalefectivofact = 0
+    var totalefectivo = 0
+    var totalefectivono = 0
+    var totaltransferencia = 0
+    var totalfiscal = 0
+    var totalgasto = 0
 
     if (inicio != '' && final != '') {
       $.ajax({
@@ -188,7 +248,6 @@ $(document).ready(function () {
         data: { inicio: inicio, final: final },
         success: function (data) {
           for (var i = 0; i < data.length; i++) {
-            
             total += parseFloat(data[i].total)
             if (data[i].factura == 'FACTURADO') {
               totalfacturado += parseFloat(data[i].total)
@@ -203,7 +262,7 @@ $(document).ready(function () {
               if (data[i].metodo == 'EFECTIVO') {
                 totalefectivono += parseFloat(data[i].total)
                 totalefectivo += parseFloat(data[i].total)
-                totalfiscal+=parseFloat(data[i].totalfiscal)
+                totalfiscal += parseFloat(data[i].totalfiscal)
               } else {
                 totaltransferencia += parseFloat(data[i].total)
               }
@@ -224,16 +283,17 @@ $(document).ready(function () {
 
             //tabla += '<tr><td>' + res[i].id_objetivo + '</td><td>' + res[i].desc_objetivo + '</td><td class="text-center">' + icono + '</td><td class="text-center"></td></tr>';
           }
-          $('#transferencia').val(totaltransferencia);
-          $('#efectivofact').val(totalefectivofact);
-          $('#totalfact').val(totalfacturado);
-          $('#efectivo').val(totalefectivo);
-          $('#efectivofact2').val(totalefectivofact);
-          $('#efectivono').val(totalefectivono);
-          $('#totaling').val(total);
-          $('#totalfact2').val(totalefectivofact);
-          $('#efectivodep').val(totalfiscal);
-          $('#deposito').val((totalfiscal+totalefectivofact)-totalgasto);
+          $('#fechac').val(inicio)
+          $('#transferencia').val(totaltransferencia)
+          $('#efectivofact').val(totalefectivofact)
+          $('#totalfact').val(totalfacturado)
+          $('#efectivo').val(totalefectivo)
+          $('#efectivofact2').val(totalefectivofact)
+          $('#efectivono').val(totalefectivono)
+          $('#totaling').val(total)
+          $('#totalfact2').val(totalefectivofact)
+          $('#efectivodep').val(totalfiscal)
+          $('#deposito').val(totalfiscal + totalefectivofact - totalgasto)
           //resultados
         },
       })
@@ -245,7 +305,7 @@ $(document).ready(function () {
         data: { inicio: inicio, final: final },
         success: function (data) {
           for (var i = 0; i < data.length; i++) {
-            totalgasto+=parseFloat( data[i].total);
+            totalgasto += parseFloat(data[i].total)
             tablaG.row
               .add([
                 data[i].folio_gto,
@@ -258,17 +318,13 @@ $(document).ready(function () {
 
             //tabla += '<tr><td>' + res[i].id_objetivo + '</td><td>' + res[i].desc_objetivo + '</td><td class="text-center">' + icono + '</td><td class="text-center"></td></tr>';
           }
-          console.log(totalgasto);
-          $('#totalgastos').val(totalgasto);
-          
-          
+          console.log(totalgasto)
+          $('#totalgastos').val(totalgasto)
         },
       })
-    deposito=parseFloat($('#deposito').val()) - parseFloat($('#totalgastos').val());
-    $('#deposito').val(deposito);
-    
-    
-
+      deposito =
+        parseFloat($('#deposito').val()) - parseFloat($('#totalgastos').val())
+      $('#deposito').val(deposito)
     } else {
       alert('Selecciona ambas fechas')
     }

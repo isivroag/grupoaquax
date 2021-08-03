@@ -74,7 +74,7 @@ $message = "";
                 <div class="container-fluid">
                     <div class="card">
                         <div class="card-header bg-gradient-blue">
-                            Filtro por rango de Fecha
+                            Filtro por Fecha
                         </div>
                         <div class="card-body">
 
@@ -85,14 +85,14 @@ $message = "";
                                         <input type="date" class="form-control" name="inicio" id="inicio" value='<?php echo date('Y-m-d'); ?>'>
                                     </div>
                                 </div>
-
+                                <!--
                                 <div class="col-lg-2">
                                     <div class="form-group input-group-sm">
                                         <label for="fecha" class="col-form-label">Hasta:</label>
                                         <input type="date" class="form-control" name="final" id="final" value='<?php echo date('Y-m-d'); ?>'>
                                     </div>
                                 </div>
-
+-->
                                 <div class="col-lg-1 align-self-end text-center">
                                     <div class="form-group input-group-sm">
                                         <button id="btnBuscar" name="btnBuscar" type="button" class="btn bg-gradient-success btn-ms"><i class="fas fa-search"></i> Buscar</button>
@@ -215,10 +215,25 @@ $message = "";
                                     <h4 class="card-title text-center">Resultado</h4>
                                 </div>
                                 <div class="card-body">
+                                    <div class="row justify-content-between">
+                                        <div class="col-sm-3">
+                                            <div class="form-group input-group-sm">
+                                                <label for="fechac" class="col-form-label">Fecha del Resultado:</label>
+                                                <input type="date" class="form-control" name="fechac" id="fechac" value='<?php echo $fecha; ?>' disabled>
+                                            </div>
+                                            
+                                        </div>
+                                        <div class="col-sm-1">
+                                                <div class="form-group input-group-sm">
+                                                    <button id="btnGuardarc" name="btnGuardarc" type="button" class="btn bg-gradient-success btn-ms"><i class="fas fa-save"></i> Guardar</button>
+                                                </div>
+                                            </div>
+
+                                    </div>
                                     <div class="row justify-content-center">
                                         <div class="col-sm-2">
                                             <div class="form-group input-group-sm">
-                                                <label for="transferencia" class="col-form-label">Transferencias:</label>
+                                                <label for="transferencia" class="col-form-label">*Transferencias:</label>
 
                                                 <div class="input-group input-group-sm">
                                                     <div class="input-group-prepend">
@@ -236,7 +251,7 @@ $message = "";
 
                                         <div class="col-sm-2">
                                             <div class="form-group input-group-sm">
-                                                <label for="efectivofact" class="col-form-label">Efectivo Facturado:</label>
+                                                <label for="efectivofact" class="col-form-label">*Efectivo Facturado:</label>
                                                 <div class="input-group input-group-sm">
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text">
@@ -309,8 +324,8 @@ $message = "";
 
                                         <div class="col-sm-2">
                                             <div class="form-group input-group-sm">
-                                                <label for="efectivo" class="col-form-label">Total Efectivo:</label>
-                                                <input type="text" class="form-control" name="efectivo" id="efectivo" autocomplete="off" value='<?php echo $totalefectivo; ?>'>
+                                                <label for="efectivo" class="col-form-label">*Total Efectivo:</label>
+                                                <input type="text" class="form-control text-right" name="efectivo" id="efectivo" autocomplete="off" value='<?php echo $totalefectivo; ?>'>
                                             </div>
                                         </div>
 
@@ -319,7 +334,7 @@ $message = "";
                                     <div class="row justify-content-end">
                                         <div class="col-sm-2">
                                             <div class="form-group input-group-sm">
-                                                <label for="totaling" class="col-form-label">Total Ingresos:</label>
+                                                <label for="totaling" class="col-form-label">*Total Ingresos:</label>
 
                                                 <div class="input-group input-group-sm">
                                                     <div class="input-group-prepend">
@@ -358,7 +373,7 @@ $message = "";
                                         </div>
                                         <div class="col-sm-2">
                                             <div class="form-group input-group-sm">
-                                                <label for="efectivodep" class="col-form-label">% Efectivo:</label>
+                                                <label for="efectivodep" class="col-form-label">*% Efectivo:</label>
 
                                                 <div class="input-group input-group-sm">
                                                     <div class="input-group-prepend">
@@ -374,7 +389,7 @@ $message = "";
 
                                         <div class="col-sm-2">
                                             <div class="form-group input-group-sm">
-                                                <label for="totalgastos" class="col-form-label">Total Gastos:</label>
+                                                <label for="totalgastos" class="col-form-label">*Total Gastos:</label>
                                                 <div class="input-group input-group-sm">
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text">
@@ -389,20 +404,20 @@ $message = "";
 
                                         <div class="col-sm-2">
                                             <div class="form-group input-group-sm">
-                                                <label for="deposito" class="col-form-label">Sugerencia Deposito:</label>
+                                                <label for="deposito" class="col-form-label">*Sugerencia Deposito:</label>
                                                 <div class="input-group input-group-sm">
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text">
                                                             <i class="fas fa-dollar-sign"></i>
                                                         </span>
                                                     </div>
-                                                    <input type="text" class="form-control text-right" name="deposito" id="deposito" autocomplete="off" value='<?php echo ($totalfiscal + $totalefectivofact)-$totalgastos; ?>'>
+                                                    <input type="text" class="form-control text-right" name="deposito" id="deposito" autocomplete="off" value='<?php echo ($totalfiscal + $totalefectivofact) - $totalgastos; ?>'>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
 
-                                  
+
                                 </div>
                             </div>
                         </div>
