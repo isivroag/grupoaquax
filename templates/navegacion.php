@@ -94,8 +94,8 @@
 
           <a href="#" class="nav-link <?php echo ($pagina == 'proveedor' || $pagina == 'partida' || $pagina == 'cxp' || $pagina == 'subpartida' ||  $pagina == 'cuentas' ) ? "active" : ""; ?>">
           <span class="fa-stack">
-              <i class=" fas fa-dollar-sign "></i>
-              <i class=" fas fa-arrow-down "></i>
+             
+          <i class="fas fa-cog nav-icon"></i>
             </span>
             <p>
               Control
