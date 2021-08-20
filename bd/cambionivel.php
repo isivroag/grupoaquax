@@ -15,13 +15,14 @@ $resp=0;
 
 
 /* Buscar los datos del ultimo objetivo logrado */
-$consulta = "SELECT * FROM evalgeneral WHERE id_alumno='$id_alumno' and id_nivel='$id_nivel' and id_etapa='$id_etapa' and id_objetivo='$id_objetivo'";
+$consulta = "SELECT * FROM evalgeneral WHERE id_alumno='$id_alumno' and id_nivel='$id_nivel' and id_etapa='$id_etapa' ORDER BY id_nivel,id_etapa,id_objetivo";
 $resultado = $conexion->prepare($consulta);
 $resultado->execute();
 $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
 foreach ($data as $reg) {
     $nivel = $reg['id_nivel'];
     $etapa = $reg['id_etapa'];
+    $id_objetivo=$reg['id_objetivo'];
     $resp+=1;
 }
 /* Obtener los datos del agrupador y el numerador del objetivo para mantenerme en el mismo nivel*/

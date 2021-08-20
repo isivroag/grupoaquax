@@ -89,6 +89,9 @@ if (!empty($_GET['id'])) {
                                     <form id="formPersonas" action="" method="POST">
                                         <div class="modal-body row">
                                             <div class="col-sm-12">
+                                            <button type="button" class="btn btn-success" id="btnpromover" name="btnpromover"><i class="fas fa-angle-double-up"></i> PROMOVER</button>
+                                            </div>
+                                            <div class="col-sm-12">
                                                 <label for="nombre" class="col-form-label">Nombre:</label>
                                                 <input type="text" class="form-control" name="nombre" id="nombre" value="<?php echo $nom_alumno; ?>" disabled>
 
@@ -190,7 +193,7 @@ if (!empty($_GET['id'])) {
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-primary" onclick="window.location.href='cntaalumno.php'"><i class="fas fa-backward"></i> Regresar</button>
-                                    <button type="button" class="btn btn-success" onclick="window.location.href='cntaalumno.php'"><i class="fas fa-save"></i> Guardar</button>
+                                    
                                 </div>
                             </div>
                         </div>

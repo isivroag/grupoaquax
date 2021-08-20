@@ -122,6 +122,7 @@ $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
                                   <th>Alumno</th>
                                   <th>SubGpo</th>
                                   <th>Nivel</th>
+                                  <th>Etapa</th>
                                   <th>Acciones</th>
                                 </tr>
                               </thead>
@@ -134,6 +135,7 @@ $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
                                     <td><?php echo $dat['nombre'] ?></td>
                                     <td><?php echo $dat['id_sub'] ?></td>
                                     <td><?php echo $dat['ncorto'] ?></td>
+                                    <td><?php echo $dat['id_etapa'] ?></td>
                                     <td></td>
 
                                   </tr>
