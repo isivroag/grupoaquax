@@ -273,7 +273,7 @@ $(document).ready(function() {
                         icon: "success",
                     });
                     window.setTimeout(function() {
-                        window.location.href = "cntaalumno.php";
+                        window.location.href = "inicio.php";
                     }, 1000);
                 } else {
                     Swal.fire({

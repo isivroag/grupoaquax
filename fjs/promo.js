@@ -70,8 +70,8 @@ $(document).ready(function() {
         fila = $(this).closest("tr");
         swal
             .fire({
-                title: "Cambiar Objetivo a Logrado",
-                html: "¿Desea Registrar que este objetivo ha sido logrado?<br><b> Si acepta, esta acción no podrá ser desecha<b>",
+                title: "Objetivo Logrado",
+                html: "¿Desea marcar el objetivo como LOGRADO?<br><b> Si acepta, esta acción no podrá ser desecha<b>",
 
                 showCancelButton: true,
                 icon: "question",
@@ -124,7 +124,7 @@ $(document).ready(function() {
                                         console.log(resp);
 
                                         window.setTimeout(function() {
-                                            window.location.href = "cntaalumno.php";
+                                            window.location.href = "inicio.php";
                                         }, 2500);
 
                                     }
