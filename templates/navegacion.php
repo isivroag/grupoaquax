@@ -18,12 +18,13 @@
         <a href="#" class="d-block"><?php echo $_SESSION['s_nombre']; ?></a>
         <input type="hidden" id="nameuser" name="nameuser" value="<?php echo $_SESSION['s_nombre']; ?>">
         <input type="hidden" id="fechasys" name="fechasys" value="<?php echo date('Y-m-d') ?>">
+        <input type="hidden" id="rolusuario" name="fechasys" value="<?php echo $_SESSION['s_rol']; ?>">
       </div>
     </div>
 
     <!-- Sidebar Menu -->
     <nav class="mt-2">
-      <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+      <ul class="nav nav-pills nav-sidebar flex-column nav-compact nav-child-indent" data-widget="treeview" role="menu" data-accordion="false">
         <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
         <li class="nav-item ">
