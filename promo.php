@@ -55,7 +55,7 @@
 
 
 
-        $consulta4 = "SELECT * FROM evalgeneral where id_alumno='" . $id . "' and id_nivel='" . $id_nivel . "' and id_etapa='" . $id_etapa . "'";
+        $consulta4 = "SELECT * FROM evalgeneral where id_alumno='" . $id . "' and id_nivel='" . $id_nivel . "' and id_etapa='" . $id_etapa . "' order by id_nivel,id_etapa,id_objetivo";
         $resultado4 = $conexion->prepare($consulta4);
         $resultado4->execute();
         $data4 = $resultado4->fetchAll(PDO::FETCH_ASSOC);

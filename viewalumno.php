@@ -115,10 +115,16 @@ if (!empty($_GET['id'])) {
 
                             </div>
 
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-primary" onclick="window.location.href='cntaalumno.php'"><i class="fas fa-backward"></i> Regresar</button>
-                                <button type="button" id="btnVergpo" name="btnVergpo" class="btn btn-success"><i class="fas fa-info-circle"></i> Info Grupos</button>
-                                <button type="button" id="btnVerEval" name="btnVerEval" onclick="window.location.href='vereval.php?id_alumno=<?php echo $id ?>'" class="btn bg-info text-light"><i class="fas fa-book-open"></i> Resumen Eval</button>
+                            <div class="modal-footer justify-content-center">
+                                <div class="row ">
+                                    <div class="col-sm-12">
+                                        <button type="button" class="btn btn-primary" onclick="window.location.href='cntaalumno.php'"><i class="fas fa-backward"></i> Regresar</button>
+                                        <button type="button" id="btnAsignar" name="btnAsignar" class="btn bg-purple"><i class="fas fa-level-up-alt"></i> Asignar Nivel</button>
+                                        <button type="button" id="btnCambio" name="btnCambio" class="btn btn-secondary"><i class="fas fa-chalkboard-teacher"></i> Asignar Instructor</button>
+                                        <button type="button" id="btnVergpo" name="btnVergpo" class="btn btn-success"><i class="fas fa-info-circle"></i> Info Grupos</button>
+                                        <button type="button" id="btnVerEval" name="btnVerEval" onclick="window.location.href='vereval.php?id_alumno=<?php echo $id ?>'" class="btn bg-info text-light"><i class="fas fa-book-open"></i> Resumen Eval</button>
+                                    </div>
+                                </div>
                             </div>
                         </form>
 

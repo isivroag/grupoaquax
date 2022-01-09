@@ -107,11 +107,10 @@ $(document).ready(function() {
                                 swal
                                     .fire({
                                         title: "<strong>Objetivos Logrados</strong>",
-                                        html: "El Alumno ha terminado exitosamente los objetivos de este programa.<br><b>Se creara una notificacion para realizar la promoción de etapa/nivel",
+                                        html: "El Alumno ha terminado exitosamente los objetivos de este programa.<br><b>Se creará una notificación para realizar la promoción de etapa/nivel",
                                         confirmButtonText: "Aceptar",
                                     });
-                                console.log(id_alumno);
-                                console.log(fecha);
+                              
                                 /*Crear Registro de Revisión de Alumno */
                                 $.ajax({
 
@@ -121,11 +120,11 @@ $(document).ready(function() {
                                     data: { id_alumno: id_alumno, fecha: fecha },
 
                                     success: function(resp) {
-                                        console.log(resp);
+                                     
 
                                         window.setTimeout(function() {
                                             window.location.href = "inicio.php";
-                                        }, 2500);
+                                        }, 5000);
 
                                     }
                                 });

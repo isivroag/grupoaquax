@@ -7,13 +7,8 @@ $conexion = $objeto->connect();
 
 
 $id = (isset($_POST['id'])) ? $_POST['id'] : '';
-$id_nivel = (isset($_POST['id_nivel'])) ? $_POST['id_nivel'] : '';
-$id_etapa = (isset($_POST['id_etapa'])) ? $_POST['id_etapa'] : '';
 
-
-
-
-$consulta = "SELECT * FROM evalgeneral where id_alumno='" . $id . "' and id_nivel='" . $id_nivel . "' and id_etapa='" . $id_etapa . "' order by id_nivel,id_etapa,id_objetivo";
+ $consulta = "SELECT * FROM etapa WHERE id_nivel='$id' ORDER BY id_etapa";
 $resultado = $conexion->prepare($consulta);
 $resultado->execute();
 $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
