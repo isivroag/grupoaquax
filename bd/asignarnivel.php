@@ -9,8 +9,22 @@ $id_nivel = (isset($_POST['nivel'])) ? $_POST['nivel'] : '';
 $id_etapa = (isset($_POST['etapa'])) ? $_POST['etapa'] : '';
 
 
-$consulta = "UPDATE datoseval SET id_nivel='$id_nivel',id_etapa='$id_etapa' WHERE id_alumno='$id_alumno'";
+$consulta = "SELECT * FROM datoseval WHERE id_alumno='$id_alumno'";
 $resultado = $conexion->prepare($consulta);
+$res=0;
+$resultado->execute();
+if ( $resultado->rowCount() > 0 )
+ {
+    $consulta = "UPDATE datoseval SET id_nivel='$id_nivel',id_etapa='$id_etapa' WHERE id_alumno='$id_alumno'";
+    $resultado = $conexion->prepare($consulta); 
+ }
+else
+{
+    $consulta = "INSERT INTO datoseval(id_alumno,id_nivel,id_etapa,id_instructor) VALUES ('$id_alumno','$id_nivel','$id_etapa','0')";
+    $resultado = $conexion->prepare($consulta); 
+}
+//$consulta = "UPDATE datoseval SET id_nivel='$id_nivel',id_etapa='$id_etapa' WHERE id_alumno='$id_alumno'";
+//$resultado = $conexion->prepare($consulta);
 
 $resultado->execute();
 $consulta = "UPDATE alumno SET id_nivel='$id_nivel' WHERE id_alumno='$id_alumno'";
