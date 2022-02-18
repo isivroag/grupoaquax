@@ -90,6 +90,7 @@ if (!empty($_GET['id'])) {
                                         <div class="modal-body row">
                                             <div class="col-sm-12">
                                             <button type="button" class="btn btn-success" id="btnpromover" name="btnpromover"><i class="fas fa-angle-double-up"></i> PROMOVER</button>
+                                            <button type="button" class="btn btn-danger" id="btncancelarpromo" name="btncancelarpromo"><i class="fas fa-ban"></i> CANCELAR</button>
                                             </div>
                                             <div class="col-sm-12">
                                                 <label for="nombre" class="col-form-label">Nombre:</label>
@@ -209,7 +210,7 @@ if (!empty($_GET['id'])) {
 
 
 <?php require_once('templates/footer.php') ?>
-<script src="fjs/promocion.js"></script>
+<script src="fjs/promocion.js?v=<?php echo (rand()); ?>"></script>
 <script src="plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
 <script src="plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>

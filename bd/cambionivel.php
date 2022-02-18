@@ -62,6 +62,11 @@ if ($resultado->rowCount() > 0) {
     $resultado->execute();
     $resp += 1;
 
+
+    $consulta = "UPDATE alumno SET id_nivel='$snivel' WHERE id_alumno='$id_alumno'";
+    $resultado = $conexion->prepare($consulta);
+    $resultado->execute();
+
     $consulta = "UPDATE w_promocion SET estado_prom='0' WHERE id_reg='$id_reg'";
     $resultado = $conexion->prepare($consulta);
     $resultado->execute();

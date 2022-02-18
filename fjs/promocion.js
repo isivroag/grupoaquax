@@ -71,6 +71,50 @@ $(document).ready(function () {
 
 }); */
 
+
+$(document).on('click', '#btncancelarpromo', function () {
+  id_reg = $('#id_reg').val();
+
+  swal
+  .fire({
+    title: '¿Desea Cancelar el Registro?',
+
+    showCancelButton: true,
+    icon: 'question',
+    focusConfirm: true,
+    confirmButtonText: 'Aceptar',
+
+    cancelButtonText: 'Cancelar',
+  })
+  .then(function (isConfirm) {
+    if (isConfirm.value) {
+      $.ajax({
+        url: 'bd/cancelarpromo.php',
+        type: 'POST',
+        dataType: 'json',
+        data: {
+        
+          id_reg: id_reg,
+        },
+        success: function (resp) {
+          if (resp != 0) {
+            Swal.fire({
+              title: 'Promoción Cancelada',
+              icon: 'success',
+            })
+
+            window.setTimeout(function () {
+              window.location.reload()
+            }, 1000)
+          }
+        },
+      })
+    } else if (isConfirm.dismiss === swal.DismissReason.cancel) {
+    }
+  })
+
+})
+
   $(document).on('click', '#btnpromover', function () {
     id_reg = $('#id_reg').val();
     id_nivel = $('#id_nivel').val();
@@ -80,12 +124,7 @@ $(document).ready(function () {
     fecha = $('#fecha').val();
 
     fila = $(this).closest('tr');
-    console.log(id_reg);
-    console.log(id_nivel);
-    console.log(id_etapa);
-    console.log(id_alumno);
-    console.log(fecha);
-    swal
+      swal
       .fire({
         title: '¿Desea Promover al Alumno?',
 

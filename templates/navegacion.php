@@ -88,7 +88,7 @@
           </ul>
 
         </li>
-        <?php if ($_SESSION['s_rol'] == '5' || $_SESSION['s_rol'] == '2' ) {
+        <?php if ( $_SESSION['s_rol'] == '2' ) {
             ?>
         <li class="nav-item has-treeview <?php echo ($pagina == 'proveedor' || $pagina == 'partida' || $pagina == 'cxp' || $pagina == 'subpartida' || $pagina == 'cuentas') ? "menu-open" : ""; ?>">
 
@@ -146,7 +146,7 @@
           </ul>
         </li>
 <?php } ?>
-  <?php if ($_SESSION['s_rol'] == '5' || $_SESSION['s_rol'] == '6'|| $_SESSION['s_rol'] == '2' ) {
+  <?php if ( $_SESSION['s_rol'] == '6'|| $_SESSION['s_rol'] == '2' ) {
             ?>
         <li class="nav-item has-treeview <?php echo ($pagina == 'gtocaja' || $pagina == 'caja' || $pagina == 'gastoscajag' || $pagina == 'cortedetallado') ? "menu-open" : ""; ?>">
 
