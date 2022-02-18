@@ -108,7 +108,7 @@ if (!empty($_GET['id'])) {
 
 
 <?php require_once('templates/footer.php') ?>
-<script src="fjs/viewgrupo.js"></script>
+<script src="fjs/viewgrupo.js?v=<?php echo (rand()); ?>"></script>
 <script src="https://cdn.datatables.net/buttons/1.6.2/js/dataTables.buttons.min.js" type="text/javascript"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js" type="text/javascript"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js" type="text/javascript"></script>
