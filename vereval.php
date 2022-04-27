@@ -32,7 +32,7 @@ if (isset($_GET['id_alumno'])) {
 
     $consulta = "SELECT datoseval.id_alumno,datoseval.id_instructor,
                 datoseval.id_nivel,datoseval.id_etapa ,nivel.nivel,nivel.agrupador 
-                FROM datoseval join nivel on datoseval.id_nivel =nivel.ID_NIVEL where datoseval.id_alumno='" . $id_alumno . "'";
+                FROM datoseval join nivel on datoseval.id_nivel =nivel.ID_NIVEL where datoseval.id_alumno='$id_alumno' and datoseval.estado_datos=1";
     $resdatoseval = $conexion->prepare($consulta);
     $resdatoseval->execute();
     $datadatoseval = $resdatoseval->fetchAll(PDO::FETCH_ASSOC);

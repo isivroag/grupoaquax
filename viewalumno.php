@@ -429,9 +429,6 @@ if (!empty($_GET['id'])) {
 
                                 </div>
 
-
-
-
                             </div>
 
 

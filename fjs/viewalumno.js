@@ -210,6 +210,13 @@ $(document).ready(function() {
                                     icon: 'warning',
                                 })
                             }
+                        },
+                        error: function(){
+                            Swal.fire({
+                                title: 'Error',
+                                text: "Funcion No completada",
+                                icon: 'error',
+                            })
                         }
                     });
                 }
