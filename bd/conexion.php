@@ -4,7 +4,7 @@
         function connect(){
         
             define('servidor','localhost');
-            define('bd_nombre','aquax');
+            define('bd_nombre','aquast');
             define('usuario','root');
             define('password','');
 

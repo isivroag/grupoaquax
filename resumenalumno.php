@@ -81,17 +81,16 @@ if (isset($_GET['id_alumno'])) {
         $fechainicio = $r['inicio'];
         $fechauno = $r['inicio'];
     }
+
     $ejercicio_actual = date('Y');
     $mesactual = date('m');
-    
-    
     $informacion = array();
 
 
     do {
 
         $ejerciciouno = date("Y", strtotime($fechainicio));
-        $mesuno =date("m", strtotime($fechainicio));
+        $mesuno = date("m", strtotime($fechainicio));
 
         $cnta = "SELECT id_alumno,MONTH(logro) as mes,YEAR(logro) as ejercicio,COUNT(valor) AS numlogrados FROM evalgeneral
         WHERE estado=1 AND valor=1 and id_alumno='$id_alumno' and month(logro)='$mesuno' and year(logro)='$ejerciciouno'
@@ -100,19 +99,78 @@ if (isset($_GET['id_alumno'])) {
         $res->execute();
         $destat = $res->fetchAll(PDO::FETCH_ASSOC);
 
-        $logros=0;
-        foreach($destat as $r){
-            $logros=$r['numlogrados'];
+        $logros = 0;
+        foreach ($destat as $r) {
+            $logros = $r['numlogrados'];
         }
 
-        $nuevoregistro = array("ejercicio" => date("Y", strtotime($fechainicio)), "mes" => $mesarreglo[date("n", strtotime($fechainicio))],"logros"=> $logros);
+        $nuevoregistro = array("ejercicio" => date("Y", strtotime($fechainicio)), "mes" => $mesarreglo[date("n", strtotime($fechainicio))], "logros" => $logros);
         $registro = (object) $nuevoregistro;
         array_push($informacion, $registro);
         $fechainicio = strtotime($fechainicio . "+ 1 month");
         $fechainicio = date("Y-m-d", $fechainicio);
     } while (strtotime($fechainicio) < strtotime($fechaactual));
 
-   array_shift($informacion);
+    array_shift($informacion);
+    $totalmeses = 0;
+    $totalobjetivos = 0;
+
+
+    foreach ($informacion as $info => $p) {
+        $totalmeses++;
+        $totalobjetivos += $p->logros;
+    }
+
+    $promediologros = round($totalobjetivos / $totalmeses, 0, PHP_ROUND_HALF_UP);
+
+
+    $sqlestadisticas = "SELECT valor, COUNT(valor) as suma FROM evalgeneral WHERE estado=1 and id_alumno='$id_alumno' GROUP BY valor";
+    $resestat = $conexion->prepare($sqlestadisticas);
+    $resestat->execute();
+    $dataestat = $resestat->fetchAll(PDO::FETCH_ASSOC);
+    $llogrados = 0;
+    $lnologrados = 0;
+    foreach ($dataestat as $rowestat) {
+        if ($rowestat['valor'] == 1) {
+            $llogrados = $rowestat['suma'];
+        } else {
+            $lnologrados = $rowestat['suma'];
+        }
+    }
+
+    $mesrestantes = round(($lnologrados / $promediologros), 0, PHP_ROUND_HALF_UP);
+
+    // proyeccion siguientes meses
+
+
+    $informacion2 = array();
+    $logrosactuales=0;
+
+    do {
+
+        $ejerciciouno = date("Y", strtotime($fechainicio));
+        $mesuno = date("m", strtotime($fechainicio));
+
+       
+
+        $nuevoregistro = array("ejercicio" => date("Y", strtotime($fechainicio)), "mes" => $mesarreglo[date("n", strtotime($fechainicio))], "logros" => $promediologros);
+        $logrosactuales+=$promediologros;
+
+        $registro = (object) $nuevoregistro;
+        array_push($informacion2, $registro);
+        $fechainicio = strtotime($fechainicio . "+ 1 month");
+        $fechainicio = date("Y-m-d", $fechainicio);
+    } while ($logrosactuales<$lnologrados);
+
+
+    //termina proyeccion
+
+
+
+
+
+
+
 } else {
     echo '<script type="text/javascript">';
     echo 'window.location.href="cntaalumno.php";';
@@ -265,6 +323,7 @@ if (isset($_GET['id_alumno'])) {
                                                                                 <tr>
                                                                                     <th class="text-center"><strong>OBJETIVO</strong></th>
                                                                                     <th class="text-center" style="width:10%"><strong>ESTADO</strong></th>
+                                                                                    <th class="text-center" style="width:10%"><strong>LOGRADO</strong></th>
                                                                                 </tr>
                                                                             </thead>
 
@@ -290,6 +349,7 @@ if (isset($_GET['id_alumno'])) {
                                                                                         <?php
                                                                                         }
                                                                                         ?>
+                                                                                        <th class="text-center" style="color:#858796"><?php echo ($dtobj['logro'] == "1900-01-01" ? "" : $dtobj['logro']); ?></th>
                                                                                     </tr>
                                                                                 <?php
                                                                                 }
@@ -336,17 +396,54 @@ if (isset($_GET['id_alumno'])) {
                                     <div class="card-body">
                                         <div class="row justify-content">
                                             <div class="col-sm-12">
-                                                <?php
-/*
-                                                foreach ($informacion as $info => $p) {
-
-                                                    echo $p->ejercicio . " - " . $p->mes . " - ". $p->logros. "<br>";
-                                                }
-*/
-                                                ?>
                                             </div>
                                             <div class="col-sm-12">
                                                 <canvas class="chart " id="line-chart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+
+
+                        <div class="row justify-content-center">
+                            <div class="col-sm-10">
+                                <div class="card">
+                                    <div class="card-header bg-gradient-blue">
+                                        <div class="row justify-content-between ">
+                                            <h3 class="card-title font-weight-bold">
+                                                <i class="fas fa-medal"></i>
+                                                PROYECCION DE AVANCE
+                                            </h3>
+
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row justify-content">
+                                            <div class="col-sm-12">
+                                                <?php 
+                                                echo " TOTAL MESES TRANSCURRIDOS " .$totalmeses;
+                                                echo "</br>";
+
+                                                echo " TOTAL OBJETIVOS COMPLETADOS " .$totalobjetivos;
+                                                    echo "</br>";
+                                                    echo " LOGRADOS " .$llogrados;
+                                                    echo "</br>";
+                                                    echo "NO LOGRADOS " .$lnologrados;
+                                                    echo "</br>";
+                                                    echo " PROMEDIO " .$promediologros;
+                                                    echo "</br>";
+
+                                                    echo " MESES RESTANTES " .$mesrestantes;
+                                                    echo "</br>";
+                                                ?>
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <canvas class="chart " id="line-chart2" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
                                             </div>
 
                                         </div>
@@ -380,7 +477,7 @@ if (isset($_GET['id_alumno'])) {
         /*GRAFICA 1*/
         var barChartCanvas = $('#line-chart').get(0).getContext('2d')
         var barChartData = {
-            labels: [<?php foreach ($informacion as $info => $p) : ?> "<?php echo $p->mes ." - ".$p->ejercicio   ?>",
+            labels: [<?php foreach ($informacion as $info => $p) : ?> "<?php echo $p->mes . " - " . $p->ejercicio   ?>",
                 <?php endforeach; ?>
             ],
             datasets: [{
@@ -392,15 +489,15 @@ if (isset($_GET['id_alumno'])) {
                 ],
                 backgroundColor: [
 
-                    
+
                     'rgba(17, 116, 241, 0.5)',
-                    
+
                 ],
                 borderColor: [
 
-                    
+
                     'rgb(17, 116, 241)',
-                   
+
                 ],
                 borderWidth: 1
             }]
@@ -431,7 +528,59 @@ if (isset($_GET['id_alumno'])) {
         })
         /*TERMINA GRAFICA 1*/
 
+        /*GRAFICA 1*/
+        var barChartCanvas2 = $('#line-chart2').get(0).getContext('2d')
+        var barChartData2 = {
+            labels: [<?php foreach ($informacion2 as $info => $p) : ?> "<?php echo $p->mes . " - " . $p->ejercicio   ?>",
+                <?php endforeach; ?>
+            ],
+            datasets: [{
+                label: 'PROYECCION DE OBJETIVOS ',
+                data: [
+                    <?php foreach ($informacion2 as $info => $p) : ?>
+                        <?php echo $p->logros; ?>,
+                    <?php endforeach; ?>
+                ],
+                backgroundColor: [
 
+
+                    'rgba(17, 116, 241, 0.5)',
+
+                ],
+                borderColor: [
+
+
+                    'rgb(17, 116, 241)',
+
+                ],
+                borderWidth: 1
+            }]
+        }
+
+
+        var barChartOptions2 = {
+            responsive: true,
+            maintainAspectRatio: false,
+            datasetFill: false,
+            scales: {
+                yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+
+                        }
+                    }
+
+                ]
+
+            }
+        }
+
+        var barChart2 = new Chart(barChartCanvas2, {
+            type: 'line',
+            data: barChartData2,
+            options: barChartOptions2
+        })
+        /*TERMINA GRAFICA 1*/
 
 
 
