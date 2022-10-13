@@ -28,7 +28,7 @@ foreach ($dataalum as $dtalumn) {
 }
 
 
-$consulta = "SELECT * FROM evalregistro where id_alumno='$id' and estado<>'2' order by fecha";
+$consulta = "SELECT * FROM evalregistro where id_alumno='$id' and estado<>'2' order by fecha desc";
 $resultado = $conexion->prepare($consulta);
 $resultado->execute();
 

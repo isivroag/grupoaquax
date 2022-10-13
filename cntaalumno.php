@@ -24,16 +24,27 @@ include_once 'bd/conexion.php';
 $objeto = new conn();
 $conexion = $objeto->connect();
 
-$sqlc = "SELECT alumno.id_alumno,alumno.nombre,alumno.id_tgpo,alumno.id_sub,alumno.id_nivel,alumno.nacimiento,alumno.edad,nivel.nivel as nomnivel 
-        from alumno join nivel on alumno.id_nivel=nivel.id_nivel order by alumno.id_alumno";
+$sqlc = "SELECT vauxlistas.id_alumno,vauxlistas.nombre,vauxlistas.id_tgpo,vauxlistas.id_sub,vauxlistas.id_nivel,vauxlistas.nacimiento,vauxlistas.edad,nivel.nivel,vauxlistas.id_objetivo as nomnivel 
+        from vauxlistas join nivel on vauxlistas.id_nivel=nivel.id_nivel order by vauxlistas.id_alumno";
 
-$sqlc = "SELECT * from vdatosevaluacion order by id_alumno";
+$sqlc = "SELECT * from vauxlistas2 order by id_alumno";
 
 $consulta = $sqlc;
 $resultado = $conexion->prepare($consulta);
 $resultado->execute();
 $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
 ?>
+
+
+<style>
+    #tablavis tfoot input {
+        width: 100% !important;
+    }
+
+    #tablavis tfoot {
+        display: table-header-group !important;
+    }
+</style>
 <link rel="stylesheet" href="plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
 <link rel="stylesheet" href="plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
 
@@ -54,7 +65,7 @@ $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
 
             <div class="card-body">
 
-               
+
                 <br>
                 <div class="container-fluid">
 
@@ -71,10 +82,23 @@ $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
                                             <th>Nivel</th>
                                             <th>ID Etapa</th>
                                             <th>Etapa</th>
+                                            <th>Obj Act</th>
                                             <th>Instructor Asignado</th>
                                             <th>Acciones</th>
                                         </tr>
                                     </thead>
+                                    <tfoot>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th class="invisible"></th>
+                                    </tfoot>
                                     <tbody>
                                         <?php
                                         foreach ($data as $dat) {
@@ -87,6 +111,7 @@ $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
                                                 <td><?php echo $dat['ncorto'] ?></td>
                                                 <td><?php echo $dat['id_etapa'] ?></td>
                                                 <td><?php echo $dat['nom_etapa'] ?></td>
+                                                <td><?php echo $dat['id_objetivo'] ?></td>
                                                 <td><?php echo $dat['nominstructor'] ?></td>
 
                                                 <td></td>
@@ -109,12 +134,18 @@ $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
 
 
 
-            <?php require_once('templates/footer.php') ?>
+<?php require_once('templates/footer.php') ?>
 
 
-            <script src="fjs/alumno.js" type="text/javascript"></script>
-            <script src="https://cdn.datatables.net/buttons/1.6.2/js/dataTables.buttons.min.js" type="text/javascript"></script>
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js" type="text/javascript"></script>
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js" type="text/javascript"></script>
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js" type="text/javascript"></script>
-            <script src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.html5.min.js" type="text/javascript"></script>
+<script src="fjs/alumno.js?v=<?php echo (rand()); ?>" type="text/javascript"></script>
+<script src="plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+<script src="plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+<script src="plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+<script src="plugins/sweetalert2/sweetalert2.all.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.6.2/js/dataTables.buttons.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.html5.min.js"></script>
+<script src="http://cdn.datatables.net/plug-ins/1.10.21/sorting/formatted-numbers.js"></script>

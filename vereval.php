@@ -32,7 +32,7 @@ if (isset($_GET['id_alumno'])) {
 
     $consulta = "SELECT datoseval.id_alumno,datoseval.id_instructor,
                 datoseval.id_nivel,datoseval.id_etapa ,nivel.nivel,nivel.agrupador 
-                FROM datoseval join nivel on datoseval.id_nivel =nivel.ID_NIVEL where datoseval.id_alumno='$id_alumno' and datoseval.estado_datos=1";
+                FROM datoseval join nivel on datoseval.id_nivel =nivel.id_nivel where datoseval.id_alumno='$id_alumno' and datoseval.estado_datos=1";
     $resdatoseval = $conexion->prepare($consulta);
     $resdatoseval->execute();
     $datadatoseval = $resdatoseval->fetchAll(PDO::FETCH_ASSOC);
@@ -199,7 +199,7 @@ if (isset($_GET['id_alumno'])) {
                                                             <div class="<?php echo (($id_nivel == $nactual) && ($id_etapa == $eactual)) ? 'collapsed' : 'collapse'; ?>" id="<?php echo $dtnivel['NCORTO'] . str_replace(' ', '', $dtetaoa['nom_etapa']); ?>">
                                                                 <!-- INICIA LA TABLA DE OBJETIVOS DE LA ETAPA -->
                                                                 <?php
-                                                                $sqlobj = "SELECT * FROM evalgeneral where id_alumno='" . $id_alumno . "' and id_nivel='" . $nactual . "' and id_etapa='" . $eactual . "'";
+                                                                $sqlobj = "SELECT * FROM evalgeneral where id_alumno='" . $id_alumno . "' and id_nivel='" . $nactual . "' and id_etapa='" . $eactual . "' order by id_objetivo";
                                                                 $resobj = $conexion->prepare($sqlobj);
                                                                 $resobj->execute();
                                                                 $dataobj = $resobj->fetchAll(PDO::FETCH_ASSOC);
@@ -209,6 +209,7 @@ if (isset($_GET['id_alumno'])) {
                                                                         <table class="table">
                                                                             <thead>
                                                                                 <tr>
+                                                                                <th class="text-center"><strong>ID</strong></th>
                                                                                     <th class="text-center"><strong>OBJETIVO</strong></th>
                                                                                     <th class="text-center" style="width:10%"><strong>ESTADO</strong></th>
                                                                                 </tr>
@@ -220,6 +221,7 @@ if (isset($_GET['id_alumno'])) {
                                                                                 ?>
 
                                                                                     <tr>
+                                                                                    <th style="color:#858796"><?php echo $dtobj['id_objetivo']; ?></th>
                                                                                         <th style="color:#858796"><?php echo $dtobj['desc_objetivo']; ?></th>
                                                                                         <?php
                                                                                         if ($dtobj['valor'] == 1) {

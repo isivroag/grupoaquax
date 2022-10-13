@@ -67,7 +67,7 @@ $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
                       $subgpo = $row['id_subgpo'];
 
 
-                      $sql = "SELECT * FROM w_vlistaalumnos WHERE estado =1 AND id_act=0 AND id_grupo='$id_grupo' order by orden,orden_sub";
+                      $sql = "SELECT * FROM vauxlistas WHERE estado =1 AND id_act=0 AND id_grupo='$id_grupo' order by orden,orden_sub";
 
                       $consultalista = $sql;
                       $resultadolista = $conexion->prepare($consultalista);
@@ -123,6 +123,7 @@ $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
                                   <th>SubGpo</th>
                                   <th>Nivel</th>
                                   <th>Etapa</th>
+                                  <th>Obj Act</th>
                                   <th>Acciones</th>
                                 </tr>
                               </thead>
@@ -136,6 +137,7 @@ $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
                                     <td><?php echo $dat['id_sub'] ?></td>
                                     <td><?php echo $dat['ncorto'] ?></td>
                                     <td><?php echo $dat['id_etapa'] ?></td>
+                                    <td><?php echo $dat['id_objetivo'] ?></td>
                                     <td></td>
 
                                   </tr>

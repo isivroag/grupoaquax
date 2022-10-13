@@ -36,10 +36,10 @@
           </a>
         </li>
 
-        <li class="nav-item  has-treeview <?php echo ($pagina == 'grupo' || $pagina == 'alumno' || $pagina == 'evaluacion' || $pagina == 'promocion') ? "menu-open" : ""; ?>">
+        <li class="nav-item  has-treeview <?php echo ($pagina == 'grupo' || $pagina == 'alumno' || $pagina == 'evaluacion' || $pagina == 'promocion' || $pagina == 'listas') ? "menu-open" : ""; ?>">
 
 
-          <a href="#" class="nav-link  <?php echo ($pagina == 'grupo' || $pagina == 'alumno' || $pagina == 'evaluacion' || $pagina == 'promocion') ? "active" : ""; ?>">
+          <a href="#" class="nav-link  <?php echo ($pagina == 'grupo' || $pagina == 'alumno' || $pagina == 'evaluacion' || $pagina == 'promocion' || $pagina == 'listas') ? "active" : ""; ?>">
             <i class="nav-icon fas fa-award nav-icon"></i>
             <p>
               Evaluaciones
@@ -60,6 +60,13 @@
               <a href="cntaalumno.php" class="nav-link <?php echo ($pagina == 'alumno') ? "active seleccionado" : ""; ?>  ">
                 <i class="fas fa-swimmer nav-icon"></i>
                 <p>Alumnos</p>
+              </a>
+            </li>
+
+            <li class="nav-item">
+              <a href="cntalista.php" class="nav-link <?php echo ($pagina == 'listas') ? "active seleccionado" : ""; ?>  ">
+                <i class="fas fa-list nav-icon"></i>
+                <p>Listas</p>
               </a>
             </li>
 

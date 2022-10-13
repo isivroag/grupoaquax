@@ -2,8 +2,40 @@ $(document).ready(function() {
     var id, opcion;
     opcion = 4;
 
+    $('#tablavis tfoot th').each(function() {
+        var title = $(this).text();
+        $(this).html('<input type="text" placeholder="Filtrar.." />');
+    });
+
+
     tablavis = $("#tablavis").DataTable({
-        stateSave: true,
+     
+    fixedHeader: true,
+  
+
+    dom: "<'row justify-content-center'<'col-sm-12 col-md-4 form-group'l><'col-sm-12 col-md-4 form-group'B><'col-sm-12 col-md-4 form-group'f>>" +
+    "<'row'<'col-sm-12'tr>>" +
+    "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
+
+
+buttons: [{
+        extend: 'excelHtml5',
+        "text": "<i class='fas fa-file-excel'> Excel</i>",
+        "titleAttr": "Exportar a Excel",
+        "title": 'Reporte de Grupos',
+        "className": 'btn bg-success ',
+        orientation: 'landscape',
+        exportOptions: { columns: [0, 1, 2, 3, 4, 5, 6, 7, 8] }
+    },
+    {
+        extend: 'pdfHtml5',
+        "text": "<i class='far fa-file-pdf'> PDF</i>",
+        "titleAttr": "Exportar a PDF",
+        "title": 'Reporte de Grupos',
+        "className": 'btn bg-danger',
+        orientation: 'landscape',
+        exportOptions: { columns: [0, 1, 2, 3, 4, 5, 6, 7, 8] }
+    }],
 
 
         "columnDefs": [{
@@ -27,7 +59,23 @@ $(document).ready(function() {
                 "sPrevious": "Anterior"
             },
             "sProcessing": "Procesando...",
+        },
+
+        "initComplete": function() {
+            this.api().columns().every(function() {
+                var that = this;
+
+                $('input', this.footer()).on('keyup change', function() {
+                    if (that.search() !== this.value) {
+                        that
+                            .search(this.value)
+                            .draw();
+                    }
+                });
+            })
         }
+
+        
     });
 
 
@@ -100,36 +148,42 @@ $(document).ready(function() {
             });
         }
     });
-    /*
-        $("#formPersonas").submit(function(e) {
-            e.preventDefault();
-            nombre = $.trim($("#nombre").val());
-            ine = $.trim($("#ine").val());
-            licencia = $.trim($("#licencia").val());
-            pasaporte = $.trim($("#pasaporte").val());
-            otro = $.trim($("#otro").val());
+    function filterFloat(evt, input) {
+        // Backspace = 8, Enter = 13, ‘0′ = 48, ‘9′ = 57, ‘.’ = 46, ‘-’ = 43
+        var key = window.Event ? evt.which : evt.keyCode
+        var chark = String.fromCharCode(key)
+        var tempValue = input.value + chark
+        var isNumber = key >= 48 && key <= 57
+        var isSpecial = key == 8 || key == 13 || key == 0 || key == 46
+        if (isNumber || isSpecial) {
+          return filter(tempValue)
+        }
+      
+        return false
+      }
+      function filter(__val__) {
+        var preg = /^([0-9]+\.?[0-9]{0,2})$/
+        return preg.te
+        st(__val__) === true
+      }
+      
+      $('.modal-header').on('mousedown', function (mousedownEvt) {
+        var $draggable = $(this)
+        var x = mousedownEvt.pageX - $draggable.offset().left,
+          y = mousedownEvt.pageY - $draggable.offset().top
+        $('body').on('mousemove.draggable', function (mousemoveEvt) {
+          $draggable.closest('.modal-dialog').offset({
+            left: mousemoveEvt.pageX - x,
+            top: mousemoveEvt.pageY - y,
+          })
+        })
+        $('body').one('mouseup', function () {
+          $('body').off('mousemove.draggable')
+        })
+        $draggable.closest('.modal').one('bs.modal.hide', function () {
+          $('body').off('mousemove.draggable')
+        })
+      })
+})
 
-
-            $.ajax({
-                url: "bd/crud.php",
-                type: "POST",
-                dataType: "json",
-                data: { nombre: nombre, ine: ine, licencia: licencia, id: id, pasaporte: pasaporte, otro: otro, opcion: opcion },
-                success: function(data) {
-                    console.log(data);
-
-                    //tablaPersonas.ajax.reload(null, false);
-                    id = data[0].id;
-                    nombre = data[0].nombre;
-                    ine = data[0].ine;
-                    licencia = data[0].licencia;
-                    pasaporte = data[0].pasaporte;
-                    otro = data[0].otro;
-                    if (opcion == 1) { tablaPersonas.row.add([id, nombre, ine, licencia, pasaporte, otro]).draw(); } else { tablaPersonas.row(fila).data([id, nombre, ine, licencia, pasaporte, otro]).draw(); }
-                }
-            });
-            $("#modalCRUD").modal("hide");
-
-        });*/
-
-});
+;
