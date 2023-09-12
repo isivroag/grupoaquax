@@ -121,7 +121,7 @@ if (isset($_GET['id_alumno'])) {
 
 
 
-                                    $sqltotal = "SELECT * FROM evalgeneral where id_alumno='" . $id_alumno . "' and id_nivel='" . $nactual . "' and valor='1'";
+                                    $sqltotal = "SELECT * FROM evalgeneral where id_alumno='" . $id_alumno . "' and id_nivel='" . $nactual . "' and valor='1' and estado='1'";
                                     $restotal = $conexion->prepare($sqltotal);
                                     $restotal->execute();
                                     $totalpasados = $restotal->rowCount();
@@ -199,7 +199,7 @@ if (isset($_GET['id_alumno'])) {
                                                             <div class="<?php echo (($id_nivel == $nactual) && ($id_etapa == $eactual)) ? 'collapsed' : 'collapse'; ?>" id="<?php echo $dtnivel['NCORTO'] . str_replace(' ', '', $dtetaoa['nom_etapa']); ?>">
                                                                 <!-- INICIA LA TABLA DE OBJETIVOS DE LA ETAPA -->
                                                                 <?php
-                                                                $sqlobj = "SELECT * FROM evalgeneral where id_alumno='" . $id_alumno . "' and id_nivel='" . $nactual . "' and id_etapa='" . $eactual . "' order by id_objetivo";
+                                                                $sqlobj = "SELECT * FROM evalgeneral where id_alumno='" . $id_alumno . "' and id_nivel='" . $nactual . "' and id_etapa='" . $eactual . "' and estado=1 order by id_objetivo";
                                                                 $resobj = $conexion->prepare($sqlobj);
                                                                 $resobj->execute();
                                                                 $dataobj = $resobj->fetchAll(PDO::FETCH_ASSOC);

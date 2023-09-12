@@ -9,7 +9,7 @@ $id_nivel = (isset($_POST['nivel'])) ? $_POST['nivel'] : '';
 $id_etapa = (isset($_POST['etapa'])) ? $_POST['etapa'] : '';
 
 
-$consulta = "SELECT * FROM datoseval WHERE id_alumno='$id_alumno' and estado_datos=1";
+$consulta = "SELECT * FROM datoseval WHERE id_alumno='$id_alumno' and estado_datos='1'";
 $resultado = $conexion->prepare($consulta);
 $res=0;
 $resultado->execute();
@@ -18,26 +18,22 @@ $iddatosviejo=0;
 
 if ( $resultado->rowCount() > 0 )
  {
-
+/*
     $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
     foreach ($data as $rowdata) {
         $iddatosviejo = $rowdata['id_datos'];
     }
-
+*/
 
      //cancelo el registo actual de datos eval
-    $consulta = "UPDATE datoseval SET estado_datos='0', fecha_baja='$fecha' WHERE id_alumno='$id_alumno'";
+    $consulta = "UPDATE datoseval SET estado_datos='0', fecha_baja='$fecha' WHERE id_alumno='$id_alumno' and estado_datos='1'";
     $resultado = $conexion->prepare($consulta); 
     $resultado->execute();
-    // creo el nuevo registro con una fecha de alta actual
-    $consulta = "INSERT INTO datoseval(id_alumno,id_nivel,id_etapa,id_instructor,fecha_alta) VALUES ('$id_alumno','$id_nivel','$id_etapa','0','$fecha')";
-    $resultado = $conexion->prepare($consulta); 
+  
  }
-else
-{
-    $consulta = "INSERT INTO datoseval(id_alumno,id_nivel,id_etapa,id_instructor) VALUES ('$id_alumno','$id_nivel','$id_etapa','0')";
-    $resultado = $conexion->prepare($consulta); 
-}
+  // creo el nuevo registro con una fecha de alta actual
+  $consulta = "INSERT INTO datoseval (id_alumno,id_nivel,id_etapa,id_instructor,fecha_alta,estado_datos) VALUES ('$id_alumno','$id_nivel','$id_etapa','0','$fecha','1')";
+  $resultado = $conexion->prepare($consulta); 
 //$consulta = "UPDATE datoseval SET id_nivel='$id_nivel',id_etapa='$id_etapa' WHERE id_alumno='$id_alumno'";
 //$resultado = $conexion->prepare($consulta);
 
@@ -45,11 +41,12 @@ $resultado->execute();
 
 //consulta los datoseval activos actuales
 
-$consulta = "SELECT * from datoseval WHERE id_alumno='$id_alumno' and estado_datos=1 ";
+$consulta = "SELECT * from datoseval WHERE id_alumno='$id_alumno' and estado_datos='1'";
 $resultado = $conexion->prepare($consulta); 
+$resultado->execute();
 $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
 foreach ($data as $rowdata) {
-    $iddatosnuevo = $rowdata['id_datos'];
+    $iddatos = $rowdata['id_datos'];
 }
 
 //actualizar la tabla alumnos
@@ -60,13 +57,13 @@ if ($resultado->execute()) {
 
 
     //cancerlar los registros de evaluacion
-    $cons = "UPDATE evalregistro SET estado=2 WHERE id_alumno='$id_alumno'";
+    $cons = "UPDATE evalregistro SET estado='2' WHERE id_alumno='$id_alumno'";
     $resultado = $conexion->prepare($cons);
 
     
     if ($resultado->execute()) {
         // eliminar los datos de objetivos actuales
-        $cons = "UPDATE evalgeneral SET estado=0 WHERE id_alumno='$id_alumno'  ";
+        $cons = "UPDATE evalgeneral SET estado='0' WHERE id_alumno='$id_alumno'";
         $resultado = $conexion->prepare($cons);
         $resultado->execute();
 
@@ -128,7 +125,7 @@ if ($resultado->execute()) {
                 }
 
                 $consultanuevo = "INSERT INTO evalgeneral (id_alumno,id_nivel,id_etapa,id_objetivo,desc_objetivo,valor,activo,logro,id_datos) 
-                            values ('$id_alumno','$nnivel','$netapa','$nobjetivo','$ndesc','$valor','$activo','$logro','$iddatosnuevo')";
+                            values ('$id_alumno','$nnivel','$netapa','$nobjetivo','$ndesc','$valor','$activo','$logro','$iddatos')";
                 $resultado = $conexion->prepare($consultanuevo);
                 $resultado->execute();
             }

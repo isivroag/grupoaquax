@@ -16,7 +16,7 @@ $resultado->execute();
 if ( $resultado->rowCount() > 0 )
  {
 
-    $consulta = "UPDATE datoseval SET id_instructor='$instructor' WHERE id_alumno='$id_alumno'";
+    $consulta = "UPDATE datoseval SET id_instructor='$instructor' WHERE id_alumno='$id_alumno' and estado_datos=1";
     $resultado = $conexion->prepare($consulta);
     $res = 0;
     if ($resultado->execute()) {

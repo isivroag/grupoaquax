@@ -3,8 +3,8 @@
         
         function connect(){
         
-            define('servidor','localhost');
-            define('bd_nombre','aquast');
+            define('servidor','127.0.0.1');
+            define('bd_nombre','aqua');
             define('usuario','root');
             define('password','');
 
