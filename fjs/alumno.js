@@ -11,7 +11,6 @@ $(document).ready(function() {
     tablavis = $("#tablavis").DataTable({
      
     fixedHeader: true,
-    //stateSave: true,
   
 
     dom: "<'row justify-content-center'<'col-sm-12 col-md-4 form-group'l><'col-sm-12 col-md-4 form-group'B><'col-sm-12 col-md-4 form-group'f>>" +

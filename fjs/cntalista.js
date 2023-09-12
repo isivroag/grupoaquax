@@ -18,7 +18,13 @@ $(document).ready(function () {
         "columnDefs": [{
             "targets": -1,
             "data": null,
-            "defaultContent": "<div class='text-center'><div class='btn-group'><button class='btn btn-info btnVer'><i class='fas fa-info-circle'></i> Info</button><button class='btn btn-primary  btnEval'><i class='fas fa-tasks'></i> Plan</button><button class='btn bg-purple  btnVerHist'><i class='fas fa-clock'></i> Historia</button><button class='btn bg-success text-light btnPromover'><i class='fas fa-award'></i> Promover</button></div></div>"
+            "defaultContent": "<div class='text-center'><div class='btn-group'>\
+            <button class='btn btn-info btnVer'><i class='fas fa-info-circle'></i> Info</button>\
+            <button class='btn btn-primary  btnEval'><i class='fas fa-tasks'></i> Plan</button>\
+            <button class='btn bg-purple  btnVerHist'><i class='fas fa-clock'></i> Historia</button>\
+            <button class='btn bg-success text-light btnPromover'><i class='fas fa-award'></i> Promover</button>\
+            <button class='btn bg-orange text-white btnRpteval' style='color:white !important'><i class='fas fa-chart-line text-white'></i> Rpt Eval</button>\
+            </div></div>"
         },
         { "width": "25%", "targets": 6 }
     ],
@@ -53,6 +59,16 @@ $(document).ready(function () {
 
 
     });
+
+    $(document).on("click", ".btnRpteval", function() {
+      fila = $(this).closest("tr");
+      id = parseInt(fila.find('td:eq(0)').text());
+console.log(id)
+      window.location.href = "alumnoeval.php?id_alumno=" + id;
+
+
+  });
+    
 
     $(document).on("click", ".btnPromover", function() {
         fila = $(this).closest("tr");
