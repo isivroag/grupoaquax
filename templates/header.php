@@ -44,4 +44,6 @@ if ($_SESSION['s_usuario'] === null) {
   <meta name="theme-color" content="#ffffff">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+   <script src="https://kit.fontawesome.com/f1fe472df3.js" crossorigin="anonymous"></script>
+
 </head>

@@ -86,7 +86,7 @@ if (isset($_GET['id_alumno'])) {
     //BUSCAR LA ESTADISTICA DE OBJETIVOS LOGRADOS POR MES
 
 
-
+/*
     $mesarreglo = array(
         "", "ENE",
         "FEB", "MAR", "ABR", "MAY", "JUN", "JUL", "AGO", "SEP", "OCT", "NOV", "DIC"
@@ -135,54 +135,55 @@ if (isset($_GET['id_alumno'])) {
     array_shift($informacion);
     $totalmeses = 0;
     $totalobjetivos = 0;
-
+    $promediologros=0;
 
     foreach ($informacion as $info => $p) {
         $totalmeses++;
         $totalobjetivos += $p->logros;
     }
+    if ($totalmeses > 0) {
+        $promediologros = round($totalobjetivos / $totalmeses, 0, PHP_ROUND_HALF_UP);
 
-    $promediologros = round($totalobjetivos / $totalmeses, 0, PHP_ROUND_HALF_UP);
 
-
-    $sqlestadisticas = "SELECT valor, COUNT(valor) as suma FROM evalgeneral WHERE estado=1 and id_alumno='$id_alumno' GROUP BY valor";
-    $resestat = $conexion->prepare($sqlestadisticas);
-    $resestat->execute();
-    $dataestat = $resestat->fetchAll(PDO::FETCH_ASSOC);
-    $llogrados = 0;
-    $lnologrados = 0;
-    foreach ($dataestat as $rowestat) {
-        if ($rowestat['valor'] == 1) {
-            $llogrados = $rowestat['suma'];
-        } else {
-            $lnologrados = $rowestat['suma'];
+        $sqlestadisticas = "SELECT valor, COUNT(valor) as suma FROM evalgeneral WHERE estado=1 and id_alumno='$id_alumno' GROUP BY valor";
+        $resestat = $conexion->prepare($sqlestadisticas);
+        $resestat->execute();
+        $dataestat = $resestat->fetchAll(PDO::FETCH_ASSOC);
+        $llogrados = 0;
+        $lnologrados = 0;
+        foreach ($dataestat as $rowestat) {
+            if ($rowestat['valor'] == 1) {
+                $llogrados = $rowestat['suma'];
+            } else {
+                $lnologrados = $rowestat['suma'];
+            }
         }
+
+        $mesrestantes = round(($lnologrados / $promediologros), 0, PHP_ROUND_HALF_UP);
+
+        // proyeccion siguientes meses
+
+
+        $informacion2 = array();
+        $logrosactuales = 0;
+
+        do {
+
+            $ejerciciouno = date("Y", strtotime($fechainicio));
+            $mesuno = date("m", strtotime($fechainicio));
+
+
+
+            $nuevoregistro = array("ejercicio" => date("Y", strtotime($fechainicio)), "mes" => $mesarreglo[date("n", strtotime($fechainicio))], "logros" => $promediologros);
+            $logrosactuales += $promediologros;
+
+            $registro = (object) $nuevoregistro;
+            array_push($informacion2, $registro);
+            $fechainicio = strtotime($fechainicio . "+ 1 month");
+            $fechainicio = date("Y-m-d", $fechainicio);
+        } while ($logrosactuales < $lnologrados);
     }
-
-    $mesrestantes = round(($lnologrados / $promediologros), 0, PHP_ROUND_HALF_UP);
-
-    // proyeccion siguientes meses
-
-
-    $informacion2 = array();
-    $logrosactuales = 0;
-
-    do {
-
-        $ejerciciouno = date("Y", strtotime($fechainicio));
-        $mesuno = date("m", strtotime($fechainicio));
-
-
-
-        $nuevoregistro = array("ejercicio" => date("Y", strtotime($fechainicio)), "mes" => $mesarreglo[date("n", strtotime($fechainicio))], "logros" => $promediologros);
-        $logrosactuales += $promediologros;
-
-        $registro = (object) $nuevoregistro;
-        array_push($informacion2, $registro);
-        $fechainicio = strtotime($fechainicio . "+ 1 month");
-        $fechainicio = date("Y-m-d", $fechainicio);
-    } while ($logrosactuales < $lnologrados);
-
+*/
 
     //termina proyeccion
 
@@ -215,7 +216,7 @@ if (isset($_GET['id_alumno'])) {
             <div class="card-header bg-gradient-blue">
                 <div class="row justify-content-center">
                     <h4 class="card-title text-center"><span>EVALUACION </span>
-                    <!--    
+                        <!--    
                     <button type="button" class="btn btn-success" id="print"><i class="fas fa-file-pdf"></i> PDF</button>
 -->
                     </h4>
@@ -640,7 +641,7 @@ if (isset($_GET['id_alumno'])) {
                                 </div>
                             </div>
                         </div>
-
+                        <!--
                         <div class="row justify-content-center">
                             <div class="col-sm-10">
                                 <div class="card">
@@ -668,7 +669,7 @@ if (isset($_GET['id_alumno'])) {
 
                             </div>
                         </div>
-
+                                        -->
 
 
                     </div>
@@ -690,7 +691,7 @@ if (isset($_GET['id_alumno'])) {
 <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
 <script src="https://html2canvas.hertzen.com/dist/html2canvas.js"></script>
 
-
+<!--
 <script>
     $(function() {
                 window.html2canvas = html2canvas;
@@ -872,3 +873,4 @@ if (isset($_GET['id_alumno'])) {
 
     });
 </script>
+-->

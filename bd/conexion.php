@@ -4,7 +4,7 @@
         function connect(){
         
             define('servidor','127.0.0.1');
-            define('bd_nombre','aqua');
+            define('bd_nombre','aquast');
             define('usuario','root');
             define('password','');
 

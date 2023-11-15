@@ -49,118 +49,122 @@ $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
           <h3>GRUPO AQUAX: BIENVENIDO</h3>
         </div>
         <div class="card-body">
+
           <div class="row justify-content-center">
-            <div class="col-lg-12">
-              <div class="card card-widget">
-                <div class="card-header bg-gradient-primary">
-                  <h3 class="text-center"><?php echo 'Horario ' . $hoy ?></h3>
+            <?php if ($_SESSION['s_rol'] != '7' && $_SESSION['s_rol'] != '6') { ?>
+              <div class="col-lg-12">
+                <div class="card card-widget">
+                  <div class="card-header bg-gradient-primary">
+                    <h3 class="text-center"><?php echo 'Horario ' . $hoy ?></h3>
 
-                </div>
-                <div class="card-body">
+                  </div>
+                  <div class="card-body">
 
-                  <?php
-                  if ($resultado->rowCount() >= 1) {
-                    foreach ($data as $row) {
-                      $id_grupo = $row['id_grupo'];
-                      $hora = $row['hora'];
-                      $grupo = $row['nombre'];
-                      $subgpo = $row['id_subgpo'];
-
-
-                      $sql = "SELECT * FROM vauxlistas WHERE estado =1 AND id_act=0 AND id_grupo='$id_grupo' order by orden,orden_sub";
-
-                      $consultalista = $sql;
-                      $resultadolista = $conexion->prepare($consultalista);
-                      if ($resultadolista->execute()) {
-                        $datalista = $resultadolista->fetchAll(PDO::FETCH_ASSOC);
-                      }
+                    <?php
+                    if ($resultado->rowCount() >= 1) {
+                      foreach ($data as $row) {
+                        $id_grupo = $row['id_grupo'];
+                        $hora = $row['hora'];
+                        $grupo = $row['nombre'];
+                        $subgpo = $row['id_subgpo'];
 
 
-                      if($resultadolista->rowCount() >= 1){
+                        $sql = "SELECT * FROM vauxlistas WHERE estado =1 AND id_act=0 AND id_grupo='$id_grupo' order by orden,orden_sub";
 
-                  ?>
-                  <div class="card card-primary p-2" style=" border: 3px solid #007bff;">
-                      <div class="row justify-content-center">
-                        <div class="col-sm-2">
-                          <div class="form-group">
-                            <label for="hora<?php echo $id_grupo?>" class="col-form-label">HORA</label>
-                            <input type="text" class="form-control form-control-sm bg-gradient-primary text-center" style="font-size: 25px;" id="hora<?php echo $id_grupo?>" name='hora<?php echo $id_grupo?>' value="<?php echo $hora ?>">
+                        $consultalista = $sql;
+                        $resultadolista = $conexion->prepare($consultalista);
+                        if ($resultadolista->execute()) {
+                          $datalista = $resultadolista->fetchAll(PDO::FETCH_ASSOC);
+                        }
+
+
+                        if ($resultadolista->rowCount() >= 1) {
+
+                    ?>
+                          <div class="card card-primary p-2" style=" border: 3px solid #007bff;">
+                            <div class="row justify-content-center">
+                              <div class="col-sm-2">
+                                <div class="form-group">
+                                  <label for="hora<?php echo $id_grupo ?>" class="col-form-label">HORA</label>
+                                  <input type="text" class="form-control form-control-sm bg-gradient-primary text-center" style="font-size: 25px;" id="hora<?php echo $id_grupo ?>" name='hora<?php echo $id_grupo ?>' value="<?php echo $hora ?>">
+                                </div>
+                              </div>
+
+                              <div class="col-sm-2 " colspan="2">
+                                <div class="form-group">
+                                  <label for="id_subgpo<?php echo $id_grupo ?>" class="col-form-label">SUBGPO</label>
+                                  <input type="text" class="form-control form-control-sm" id="id_subgpo<?php echo $id_grupo ?>" name='id_subgpo<?php echo $id_grupo ?>' value="<?php echo $subgpo ?>">
+                                </div>
+                              </div>
+
+                              <div class="col-sm-6">
+                                <div class="form-group">
+                                  <label for="grupo<?php echo $id_grupo ?>" class="col-form-label">INSTRUCTOR</label>
+                                  <input type="text" class="form-control form-control-sm" id="grupo<?php echo $id_grupo ?>" name='grupo<?php echo $id_grupo ?>' value="<?php echo $grupo ?>">
+                                </div>
+                              </div>
+
+                              <div class="col-sm-2">
+                                <div class="form-group">
+
+                                  <input type="hidden" class="form-control form-control-sm" id="idgpo<?php echo $id_grupo ?>" name='idgpo<?php echo $id_grupo ?>' value="<?php echo $id_grupo ?>">
+                                </div>
+                              </div>
+
+
+                            </div>
+
+                            <div class="row justify-content-center">
+                              <div class="col-sm-11">
+                                <div class="table-responsive">
+                                  <table name="" id="" class="tablad1 display table table-sm table-striped table-bordered table-condensed text-nowrap  mx-auto " style="width:100%">
+                                    <thead class="text-center bg-blue">
+                                      <tr>
+                                        <th>ID </th>
+                                        <th>Alumno</th>
+                                        <th>SubGpo</th>
+                                        <th>Nivel</th>
+                                        <th>Etapa</th>
+                                        <th>Obj Act</th>
+                                        <th>Acciones</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                      <?php
+                                      foreach ($datalista as $dat) {
+                                      ?>
+                                        <tr>
+                                          <td><?php echo $dat['id_alumno'] ?></td>
+                                          <td><?php echo $dat['nombre'] ?></td>
+                                          <td><?php echo $dat['id_sub'] ?></td>
+                                          <td><?php echo $dat['ncorto'] ?></td>
+                                          <td><?php echo $dat['id_etapa'] ?></td>
+                                          <td><?php echo $dat['id_objetivo'] ?></td>
+                                          <td></td>
+
+                                        </tr>
+                                      <?php
+                                      }
+                                      ?>
+                                    </tbody>
+                                  </table>
+                                </div>
+                              </div>
+                            </div>
                           </div>
-                        </div>
 
-                        <div class="col-sm-2 " colspan="2"  >
-                          <div class="form-group">
-                            <label for="id_subgpo<?php echo $id_grupo?>" class="col-form-label">SUBGPO</label>
-                            <input type="text" class="form-control form-control-sm" id="id_subgpo<?php echo $id_grupo?>" name='id_subgpo<?php echo $id_grupo?>' value="<?php echo $subgpo ?>">
-                          </div>
-                        </div>
-
-                        <div class="col-sm-6">
-                          <div class="form-group">
-                            <label for="grupo<?php echo $id_grupo?>" class="col-form-label">INSTRUCTOR</label>
-                            <input type="text" class="form-control form-control-sm" id="grupo<?php echo $id_grupo?>" name='grupo<?php echo $id_grupo?>' value="<?php echo $grupo ?>">
-                          </div>
-                        </div>
-
-                        <div class="col-sm-2">
-                          <div class="form-group">
-
-                            <input type="hidden" class="form-control form-control-sm" id="idgpo<?php echo $id_grupo?>" name='idgpo<?php echo $id_grupo?>' value="<?php echo $id_grupo ?>">
-                          </div>
-                        </div>
-
-
-                      </div>
-
-                      <div class="row justify-content-center">
-                        <div class="col-sm-11">
-                          <div class="table-responsive">
-                            <table name="" id="" class="tablad1 display table table-sm table-striped table-bordered table-condensed text-nowrap  mx-auto " style="width:100%">
-                              <thead class="text-center bg-blue">
-                                <tr>
-                                  <th>ID </th>
-                                  <th>Alumno</th>
-                                  <th>SubGpo</th>
-                                  <th>Nivel</th>
-                                  <th>Etapa</th>
-                                  <th>Obj Act</th>
-                                  <th>Acciones</th>
-                                </tr>
-                              </thead>
-                              <tbody>
-                                <?php
-                                foreach ($datalista as $dat) {
-                                ?>
-                                  <tr>
-                                  <td><?php echo $dat['id_alumno'] ?></td>
-                                    <td><?php echo $dat['nombre'] ?></td>
-                                    <td><?php echo $dat['id_sub'] ?></td>
-                                    <td><?php echo $dat['ncorto'] ?></td>
-                                    <td><?php echo $dat['id_etapa'] ?></td>
-                                    <td><?php echo $dat['id_objetivo'] ?></td>
-                                    <td></td>
-
-                                  </tr>
-                                <?php
-                                }
-                                ?>
-                              </tbody>
-                            </table>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                  <?php
+                    <?php
+                        }
                       }
                     }
-                  }
-                  ?>
+                    ?>
 
+                  </div>
                 </div>
               </div>
-            </div>
+            <?php } ?>
           </div>
+
         </div>
 
       </div>

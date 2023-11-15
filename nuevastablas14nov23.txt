@@ -1,0 +1,64 @@
+CREATE TABLE `warticulo` (
+	`id_art` BIGINT(20) NOT NULL AUTO_INCREMENT,
+	`clave` VARCHAR(50) NOT NULL COLLATE 'latin1_swedish_ci',
+	`nombre` VARCHAR(100) NOT NULL COLLATE 'latin1_swedish_ci',
+	`cantidad` DECIMAL(10,2) NOT NULL DEFAULT '0.00',
+	`categoria` VARCHAR(50) NOT NULL DEFAULT '0' COLLATE 'latin1_swedish_ci',
+	`referencia` VARCHAR(50) NOT NULL DEFAULT '0' COLLATE 'latin1_swedish_ci',
+	`fecha_alta` DATE NOT NULL DEFAULT curdate(),
+	`fecha_baja` DATE NOT NULL DEFAULT '1900-01-01',
+	`estado_art` TINYINT(4) NULL DEFAULT '1',
+	`prestado` TINYINT(4) NULL DEFAULT '0',
+	PRIMARY KEY (`id_art`) USING BTREE
+)
+COLLATE='latin1_swedish_ci'
+ENGINE=InnoDB
+
+;
+
+
+CREATE TABLE `wcategoria` (
+	`id_cat` BIGINT(20) NOT NULL AUTO_INCREMENT,
+	`nombre` VARCHAR(50) NOT NULL COLLATE 'latin1_swedish_ci',
+	`estado_cat` TINYINT(4) NOT NULL DEFAULT '1',
+	PRIMARY KEY (`id_cat`) USING BTREE
+)
+COLLATE='latin1_swedish_ci'
+ENGINE=InnoDB
+
+;
+
+CREATE TABLE `wprestamo` (
+	`folio_pres` BIGINT(20) NOT NULL AUTO_INCREMENT,
+	`fecha` DATE NOT NULL,
+	`responsable` VARCHAR(100) NOT NULL COLLATE 'latin1_swedish_ci',
+	`evento` VARCHAR(100) NOT NULL COLLATE 'latin1_swedish_ci',
+	`fecha_salida` DATE NOT NULL DEFAULT curdate(),
+	`fecha_entrada` DATE NOT NULL DEFAULT curdate(),
+	`obs` VARCHAR(50150) NULL DEFAULT '' COLLATE 'latin1_swedish_ci',
+	`estado_pres` TINYINT(4) NOT NULL DEFAULT '1',
+	`usuario` VARCHAR(50) NOT NULL COLLATE 'latin1_swedish_ci',
+	`estado` VARCHAR(50) NOT NULL DEFAULT 'ACTIVO' COLLATE 'latin1_swedish_ci',
+	`activo` TINYINT(4) NOT NULL DEFAULT '0',
+	PRIMARY KEY (`folio_pres`) USING BTREE
+)
+COLLATE='latin1_swedish_ci'
+ENGINE=InnoDB
+
+;
+
+
+CREATE TABLE `wprestamo_det` (
+	`id_reg` BIGINT(20) NOT NULL AUTO_INCREMENT,
+	`folio_pres` BIGINT(20) NOT NULL,
+	`id_art` BIGINT(20) NOT NULL,
+	`devuelto` TINYINT(4) NULL DEFAULT '0',
+	`obs` VARCHAR(150) NULL DEFAULT '' COLLATE 'latin1_swedish_ci',
+	`estado_reg` TINYINT(4) NOT NULL DEFAULT '1',
+	`prestado` TINYINT(4) NULL DEFAULT '1',
+	PRIMARY KEY (`id_reg`) USING BTREE
+)
+COLLATE='latin1_swedish_ci'
+ENGINE=InnoDB
+
+;
