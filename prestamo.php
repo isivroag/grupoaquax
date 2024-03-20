@@ -53,7 +53,7 @@ if ($folio != "") {
         // INSERTAR FOLIO NUEVO
 
         $fecha = date('Y-m-d');
-        $consultatmp = "INSERT INTO wprestamo (usuario,fecha) VALUES('$usuario', '$fecha')";
+        $consultatmp = "INSERT INTO wprestamo (usuario,fecha,fecha_salida,fecha_entrada) VALUES('$usuario', '$fecha','$fecha','$fecha')";
         $resultadotmp = $conexion->prepare($consultatmp);
         $resultadotmp->execute();
 

@@ -3,10 +3,10 @@
         
         function connect(){
         
-            define('servidor','127.0.0.1');
+            define('servidor','localhost');
             define('bd_nombre','aquast');
             define('usuario','root');
-            define('password','');
+            define('password','tecniem');
 
             $opciones=array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8');
 
