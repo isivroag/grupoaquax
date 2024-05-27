@@ -28,7 +28,7 @@ foreach ($dataalum as $dtalumn) {
 }
 
 
-$consulta = "SELECT * FROM evalregistro where id_alumno='$id' and estado<>'2' order by fecha desc";
+$consulta = "SELECT * FROM evalregistro where id_alumno='$id'  order by fecha desc";
 $resultado = $conexion->prepare($consulta);
 $resultado->execute();
 
@@ -79,21 +79,36 @@ $data2 = $resultado->fetchAll(PDO::FETCH_ASSOC);
                         foreach ($data2 as $dt2) {
 
                             $folio = $dt2['folio'];
+                            $estado=$dt2['estado'];
+                            if ($estado==1){
+                                $color='bg-blue';
+                                $borde='border-primary';
+                                $texto='text-blue';
+                            }else{
+                                $color='bg-green';
+                                $borde='border-success';
+                                $texto='text-green';
+
+                            }
 
                             echo "<div class='time-label'>";
 
                             echo "</div>";
                             echo "<div>";
-                            echo "<i class='fas fa-list bg-blue'></i>";
+                            echo "<i class='fas fa-list ". $color." '></i>";
                             echo "<div class='timeline-item'>";
-                            echo "<div class='timeline-header bg-gray-light  border border-primary'>";
-                            echo "<span class='text-blue font-weight-bolder'>Fecha: </span><span class=' font-weight-bold '>" . $dt2['fecha'] . "</span><br>";
+                            echo "<div class='timeline-header   border ". $borde."'>";
+                            echo "<span class=' ".$texto." font-weight-bolder'>Fecha: </span><span class=' font-weight-bold '>" . $dt2['fecha'] . "</span><br>";
+                            
 
                             echo "</div>";
-                            echo "<div class='timeline-body  border border-primary '>";
-                            echo "<span class='text-blue font-weight-bolder'>INSTRUCTOR: </span><span class='font-weight-bold '>" . $dt2['instructor'] . " </span>";
+                            echo "<div class='timeline-body  border ". $borde."'>";
+                            echo "<span class=' ".$texto." font-weight-bolder'>INSTRUCTOR: </span><span class='font-weight-bold '>" . $dt2['instructor'] . " </span><br>";
+                            echo "<span class=' ".$texto." font-weight-bolder'>NIVEL: </span><span class='font-weight-bold '>" . $dt2['nom_nivel'] . " </span>";
+                            echo "<span class=' ".$texto." font-weight-bolder'>ETAPA: </span><span class='font-weight-bold '>" . $dt2['id_etapa'] . " </span>";
                             echo "<div>";
-                            echo "<span class='text-blue font-weight-bolder'>OBJETIVOS: </span>";
+
+                            echo "<span class=' ".$texto." font-weight-bolder'>OBJETIVOS: </span>";
 
                             $cntaobj = "SELECT * FROM evalobjreg WHERE folio ='$folio' ORDER BY registro";
                             $resobj = $conexion->prepare($cntaobj);
@@ -102,12 +117,12 @@ $data2 = $resultado->fetchAll(PDO::FETCH_ASSOC);
 
 
                             foreach ($dataobj as $objetivos) {
-                                echo "<li>" . $objetivos['descripcion'] . "</li>";
+                                echo "<li>".$objetivos['id_objetivo']. "- " . $objetivos['descripcion'] . "</li>";
                             }
                             echo "</div>";
 
                             echo "<div>";
-                            echo "<span class='text-blue font-weight-bolder'>ACTIVIDADES: </span>";
+                            echo "<span class=' ".$texto." font-weight-bolder'>ACTIVIDADES: </span>";
 
                             $cntaact = "SELECT * FROM evalactreg WHERE folio ='$folio' ORDER BY reg_act";
                             $resact = $conexion->prepare($cntaact);
@@ -119,13 +134,13 @@ $data2 = $resultado->fetchAll(PDO::FETCH_ASSOC);
                                 echo "<li>" . $actividades['actividad'] . "</li>";
                             }
                             echo "</div>";
-                            echo "<div class='text-blue font-weight-bolder'>";
+                            echo "<div class=' ".$texto." font-weight-bolder'>";
                             if ($dt2['estado'] == 1) {
                                 $estado = "Evaluación Completa";
                             } else {
                                 $estado = "Evaluación Incompleta";
                             }
-                            echo "<span class='text-blue font-weight-bolder'>ESTADO: </span><span class='font-weight-bold text-dark'>" . $estado . " </span>";
+                            echo "<span class=' ".$texto." font-weight-bolder'>ESTADO: </span><span class='font-weight-bold text-dark'>" . $estado . " </span>";
                             echo "</div>";
 
                             echo "</div>";
